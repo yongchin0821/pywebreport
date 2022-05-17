@@ -4,6 +4,7 @@ Generate html reports by sources such as unittest、pytest and any more
 
 like allure but as do-one-thing-do-it-well for **python community**.
 
+
 ## Current progress
 
 - [ ] Feasibility Study
@@ -14,6 +15,7 @@ We may extract results in different formats from pytest、unittest. if there hav
 ![](./idea.png)
 
 ## Recruitment
+This is an incubation project
 
 hope and invite you to join me if you are interested in this project
 
