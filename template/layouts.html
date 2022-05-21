@@ -6,9 +6,16 @@
     <title>{% block title %}{% endblock %} - My Webpage</title>
     {% endblock %}
     <link href="tailwind.css" rel="stylesheet" />
+    <style type="text/css">
+      #sidebar {
+        width: 300px;
+        background-color: #f8f6f2;
+      }
+    </style>
   </head>
   <body>
-    <div id="sidebar" class="flex flex-col items-center "></div>
-    
+    <div id="sidebar" class="flex items-center">{% include 'sidebar.html' %}</div>
+    <div id="nav" class="flex"></div>
+    <div id="main" class="flex"></div>
   </body>
 </html>
