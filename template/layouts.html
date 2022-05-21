@@ -5,13 +5,10 @@
     <link rel="stylesheet" href="style.css" />
     <title>{% block title %}{% endblock %} - My Webpage</title>
     {% endblock %}
+    <link href="tailwind.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div class="nji">{% include 'body.html' %}</div>
-    <div id="footer">
-      {% block footer %} &copy; Copyright 2008 by
-      <a href="http://domain.invalid/">you</a>. {% endblock %}
-    </div>
+    <div id="sidebar" class="flex flex-col items-center "></div>
+    
   </body>
 </html>
