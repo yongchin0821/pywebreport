@@ -11,16 +11,27 @@
         width: 300px;
         background-color: #f8f6f2;
       }
+      #sidebar ul li:active {
+        background-color: #4FC9DA;
+        border-radius: 0.25rem;
+      }
+      #nav {
+        height: 96px;
+        top:0px;
+        left: 300px;
+        position: absolute;
+      }
     </style>
   </head>
   <body>
-    <div id="sidebar" class="flex items-center"><aside class="flex flex-col items-center">
+    <div id="sidebar" class="container h-screen">
+      <aside class="flex flex-col items-center">
       <a href="https://flowbite.com" class="flex items-center pl-2.5 mb-5">
-         <img src="/docs/images/logo.svg" class="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
+         <img src="../idea.png" class="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
          <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
       </a>
-      <ul class="space-y-2">
-         <li>
+      <ul class="flex flex-col gap-y-6">
+         <li style="">
             <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
                <span class="ml-3">Dashboard</span>
@@ -65,8 +76,126 @@
             </a>
          </li>
       </ul>
-</aside></div>
-    <div id="nav" class="flex"></div>
-    <div id="main" class="flex"></div>
+</aside>
+    </div>
+    <div id="nav" class="container w-screen">
+      <div class="h-full flex items-center justify-between px-7">
+  <!-- 左 -->
+  <div>Dashbaord</div>
+  <!-- 右 -->
+  <div class="flex item-center">
+    <div>
+      <form class="flex items-center">
+        <label for="simple-search" class="sr-only">Search</label>
+        <div class="relative w-full">
+          <div
+            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+          >
+            <svg
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="simple-search"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="p-2.5 ml-2 text-sm font-medium text-white bg-blue-300 rounded-lg border border-blue-500 hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+    <div class="flex items-center" >
+      <button class="p-2.5 ml-2 rounded-lg border" style="border-color:#EFE9E1;">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          opacity="0.3"
+          d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
+          fill="currentColor"
+        ></path>
+        <rect
+          x="6"
+          y="12"
+          width="7"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        ></rect>
+        <rect
+          x="6"
+          y="7"
+          width="12"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        ></rect>
+      </svg></button>
+            <button class="p-2.5 ml-2 rounded-lg border" style="border-color:#EFE9E1;">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          opacity="0.3"
+          d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z"
+          fill="currentColor"
+        ></path>
+        <rect
+          x="6"
+          y="12"
+          width="7"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        ></rect>
+        <rect
+          x="6"
+          y="7"
+          width="12"
+          height="2"
+          rx="1"
+          fill="currentColor"
+        ></rect>
+      </svg></button>
+    </div>
+  </div>
+</div>
+    </div>
+    <div id="main" class="container"></div>
   </body>
 </html>
