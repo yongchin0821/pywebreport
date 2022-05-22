@@ -12,24 +12,28 @@
         background-color: #f8f6f2;
       }
       #sidebar ul li:active {
-        background-color: #4FC9DA;
+        background-color: #4fc9da;
         border-radius: 0.25rem;
       }
       #nav {
         height: 96px;
-        top:0px;
+        top: 0px;
         left: 300px;
         position: absolute;
       }
+      #main {
+        top: 96px;
+        left: 300px;
+        position: absolute;
+      }
+
     </style>
   </head>
   <body>
     <div id="sidebar" class="container h-screen">
       {% include 'sidebar.html' %}
     </div>
-    <div id="nav" class="container w-screen">
-      {% include 'nav.html' %}
-    </div>
-    <div id="main" class="container"></div>
+    <div id="nav" class="container w-screen">{% include 'nav.html' %}</div>
+    <div id="main" class="container h-screen">{% include 'main.html' %}</div>
   </body>
 </html>

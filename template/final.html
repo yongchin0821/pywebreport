@@ -12,26 +12,29 @@
         background-color: #f8f6f2;
       }
       #sidebar ul li:active {
-        background-color: #4FC9DA;
+        background-color: #4fc9da;
         border-radius: 0.25rem;
       }
       #nav {
         height: 96px;
-        top:0px;
+        top: 0px;
         left: 300px;
         position: absolute;
       }
+      #main {
+        top: 96px;
+        left: 300px;
+        position: absolute;
+      }
+
     </style>
   </head>
   <body>
     <div id="sidebar" class="container h-screen">
       <aside class="flex flex-col items-center">
-      <a href="https://flowbite.com" class="flex items-center pl-2.5 mb-5">
-         <img src="../idea.png" class="h-6 mr-3 sm:h-7" alt="Flowbite Logo" />
-         <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-      </a>
+      <div class="logo-font text-xl p-3 font-extrabold ">PyWebReport</div>
       <ul class="flex flex-col gap-y-6">
-         <li style="">
+         <li>
             <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
                <span class="ml-3">Dashboard</span>
@@ -78,8 +81,7 @@
       </ul>
 </aside>
     </div>
-    <div id="nav" class="container w-screen">
-      <div class="h-full flex items-center justify-between px-7">
+    <div id="nav" class="container w-screen"><div class="h-full flex items-center justify-between px-7">
   <!-- 左 -->
   <div>Dashbaord</div>
   <!-- 右 -->
@@ -194,8 +196,45 @@
       </svg></button>
     </div>
   </div>
+</div></div>
+    <div id="main" class="container h-screen"><div class="flex">
+<div class="flex bg-card mx-7 shadow-lg rounded-lg overflow-hidden">
+  <div class="py-3 px-5 bg-gray-50">Doughnut chart</div>
+  <canvas class="p-10" id="chartDoughnut"></canvas>
+  <div>ddddsad</div>
 </div>
-    </div>
-    <div id="main" class="container"></div>
+</div>
+<!-- Required chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Chart doughnut -->
+<script>
+  const dataDoughnut = {
+    labels: ["JavaScript", "Python", "Ruby"],
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [300, 50, 100],
+        backgroundColor: [
+          "rgb(133, 105, 241)",
+          "rgb(164, 101, 241)",
+          "rgb(101, 143, 241)",
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const configDoughnut = {
+    type: "doughnut",
+    data: dataDoughnut,
+    options: {},
+  };
+
+  var chartBar = new Chart(
+    document.getElementById("chartDoughnut"),
+    configDoughnut
+  );
+</script></div>
   </body>
 </html>
