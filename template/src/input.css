@@ -11,5 +11,6 @@
   }
   .bg-card {
     background-color: rgba(248, 246, 242, 0.3);
+    border: 1px dashed #E8E5DD
   }
 }

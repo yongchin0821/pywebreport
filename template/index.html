@@ -17,22 +17,16 @@
       }
       #nav {
         height: 96px;
-        top: 0px;
-        left: 300px;
-        position: absolute;
       }
       #main {
-        top: 96px;
-        left: 300px;
-        position: absolute;
       }
-
     </style>
   </head>
   <body>
-    <div id="sidebar" class="container h-screen">
-      <aside class="flex flex-col items-center">
-      <div class="logo-font text-xl p-3 font-extrabold ">PyWebReport</div>
+    <div class="flex">
+      <div id="sidebar" class="container h-screen">
+        <aside class="flex flex-col items-center">
+      <div class="logo-font text-xl p-3 font-extrabold">PyWebReport</div>
       <ul class="flex flex-col gap-y-6">
          <li>
             <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -80,8 +74,9 @@
          </li>
       </ul>
 </aside>
-    </div>
-    <div id="nav" class="container w-screen"><div class="h-full flex items-center justify-between px-7">
+      </div>
+      <div class="flex flex-col w-screen">
+        <div id="nav" class="container"><div class="h-full flex items-center justify-between px-7">
   <!-- 左 -->
   <div>Dashbaord</div>
   <!-- 右 -->
@@ -197,11 +192,81 @@
     </div>
   </div>
 </div></div>
-    <div id="main" class="container h-screen"><div class="flex">
-<div class="flex bg-card mx-7 shadow-lg rounded-lg overflow-hidden">
-  <div class="py-3 px-5 bg-gray-50">Doughnut chart</div>
-  <canvas class="p-10" id="chartDoughnut"></canvas>
-  <div>ddddsad</div>
+        <div id="main" class="container"><div class="flex flex-wrap gap-y-8">
+  <div
+    class="flex items-center bg-card mx-7 rounded-lg overflow-hidden w-1/3"
+  >
+    <div class="w-32 h-32"><canvas id="chartDoughnut"></canvas></div>
+    <div class="w-full">
+      <div class="m-4">
+        <h1 class="text-2xl font-extrabold">96%</h1>
+        <p class="text-sm text-slate-500">rate of success</p>
+      </div>
+
+      <ul role="list" class="m-4 list-disc pl-4 space-y-2 text-slate-500">
+        <li class="marker:text-sky-300">
+          <div class="flex justify-between">Success <span>50</span></div>
+        </li>
+        <li class="marker:text-red-400">Fail</li>
+        <li class="marker:text-yellow-400">Warning</li>
+        <li class="marker:text-gray-300">Skip</li>
+      </ul>
+    </div>
+  </div>
+  <div
+    id="banner"
+    style="
+      background-position: 100% 100%;
+      background-size: 500px auto;
+      background-image: url('city.png');
+      background-color: #f6f1e9;
+    "
+    class="rounded-lg bg-no-repeat w-7/12"
+  >
+    <div class="px-14 py-12 text-2xl font-extrabold">
+      <p>Good Report</p>
+      <p>is a tool of productivity</p>
+    </div>
+  </div>
+  <div
+    class="flex items-center bg-card w-96 mx-7 rounded-lg overflow-hidden w-1/3"
+  >
+    <div class="w-32 h-32"><canvas id="chartDoughnut"></canvas></div>
+    <div class="w-full">
+      <div class="m-4">
+        <h1 class="text-2xl font-extrabold">96%</h1>
+        <p class="text-sm text-slate-500">rate of success</p>
+      </div>
+
+      <ul role="list" class="m-4 list-disc pl-4 space-y-2 text-slate-500">
+        <li class="marker:text-sky-300">
+          <div class="flex justify-between">Success <span>50</span></div>
+        </li>
+        <li class="marker:text-red-400">Fail</li>
+        <li class="marker:text-yellow-400">Warning</li>
+        <li class="marker:text-gray-300">Skip</li>
+      </ul>
+    </div>
+  </div>
+  <div
+  class="flex items-center bg-card w-96 mx-7 rounded-lg overflow-hidden w-1/3"
+>
+  <div class="w-32 h-32"><canvas id="chartDoughnut"></canvas></div>
+  <div class="w-full">
+    <div class="m-4">
+      <h1 class="text-2xl font-extrabold">96%</h1>
+      <p class="text-sm text-slate-500">rate of success</p>
+    </div>
+
+    <ul role="list" class="m-4 list-disc pl-4 space-y-2 text-slate-500">
+      <li class="marker:text-sky-300">
+        <div class="flex justify-between">Success <span>50</span></div>
+      </li>
+      <li class="marker:text-red-400">Fail</li>
+      <li class="marker:text-yellow-400">Warning</li>
+      <li class="marker:text-gray-300">Skip</li>
+    </ul>
+  </div>
 </div>
 </div>
 <!-- Required chart.js -->
@@ -210,15 +275,15 @@
 <!-- Chart doughnut -->
 <script>
   const dataDoughnut = {
-    labels: ["JavaScript", "Python", "Ruby"],
     datasets: [
       {
         label: "My First Dataset",
-        data: [300, 50, 100],
+        data: [300, 50, 0, 100],
         backgroundColor: [
-          "rgb(133, 105, 241)",
-          "rgb(164, 101, 241)",
-          "rgb(101, 143, 241)",
+          "rgb(79, 201, 218)",
+          "rgb(240, 100, 69)",
+          "rgb(232, 196, 68)",
+          "#E4E6EF",
         ],
         hoverOffset: 4,
       },
@@ -235,6 +300,15 @@
     document.getElementById("chartDoughnut"),
     configDoughnut
   );
-</script></div>
+</script>
+
+<style type="text/css">
+  #banner {
+    background-position: 100% 100%;
+    background-image: url("city.png");
+  }
+</style></div>
+      </div>
+    </div>
   </body>
 </html>

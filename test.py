@@ -14,6 +14,6 @@ STYLESHEET_HTML = "stylesheet.html"
 
 template = env.get_template("layouts.html")
 a = template.render()
-b = open("template/final.html", "wb")
+b = open("template/index.html", "wb")
 b.write(a.encode("utf-8"))
 b.close()
