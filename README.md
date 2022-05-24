@@ -8,7 +8,7 @@ like allure but as do-one-thing-do-it-well for **python community**.
 ## Current progress
 
 - [x] Feasibility Study.(it seems feasible)
-- [ ] Report designing 🚧👷(you can see progress [here]("https://yongchin0821.github.io/pywebreport/"))
+- [ ] Report designing 🚧👷(you can see progress [here](https://yongchin0821.github.io/pywebreport/))
 
 ## My initial idea
 We may extract results in different formats from pytest、unittest. if there have a formatter to format results into the common datas,then we can use this datas to make html report.
