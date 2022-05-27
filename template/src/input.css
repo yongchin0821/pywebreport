@@ -11,6 +11,9 @@
   }
   .bg-card {
     background-color: rgba(248, 246, 242, 0.3);
-    border: 1px dashed #E8E5DD
+    border: 1px dashed #e8e5dd;
+  }
+  .bg-yellow-chunk {
+    background-color: rgba(248, 246, 242, 0.3);
   }
 }
