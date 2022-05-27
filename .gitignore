@@ -1,4 +1,5 @@
 .history
 .idea
 .DS_store
+dist
 node_modules
