@@ -6,7 +6,7 @@ import time
 from typing import Optional
 from pydantic import BaseModel
 from formatter import formatter
-
+from reportor import Process
 report = {
     "title": None,
     "result": {}
@@ -51,6 +51,8 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
 
     formatter.use_formatter(report)
     formatter.output()
+
+    p = Process("test/datas.json")
 
 
 def pytest_report_collectionfinish(config, startdir, items):

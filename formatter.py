@@ -3,6 +3,7 @@
 # @Time    : 2022/6/14 9:02 AM
 # @Author  : Yongchin
 
+import os
 from typing import Optional, List
 from pydantic import BaseModel
 
@@ -34,7 +35,11 @@ class Formatter:
         return self.common_datas
 
     def output(self):
-        f = open(self.common_datas.path, "w+")
+        report_dir = os.path.dirname(self.common_datas.path)
+        if not os.path.exists(report_dir):
+            os.mkdir(report_dir)
+
+        f = open(report_dir + "/datas.json", "w+")
         f.write(self.common_datas.json())
         f.close()
 
