@@ -4,17 +4,23 @@
       <div class="w-32 h-32"><canvas id="chartDoughnut"></canvas></div>
       <div class="w-full">
         <div class="m-4">
-          <h1 class="text-2xl font-extrabold">96%</h1>
-          <p class="text-sm text-slate-500">rate of success</p>
+          <h1 class="text-2xl font-extrabold">{{ result.rate_passed}}</h1>
+          <p class="text-sm text-slate-500">rate of pass</p>
         </div>
 
         <ul role="list" class="m-4 list-disc space-y-2 text-slate-500">
           <li class="marker:text-sky-300">
-            <div class="flex justify-between">Success <span>50</span></div>
+            <div class="flex justify-between">Success <span>{{ result.passed }}</span></div>
           </li>
-          <li class="marker:text-red-400">Fail</li>
-          <li class="marker:text-yellow-400">Warning</li>
-          <li class="marker:text-gray-300">Skip</li>
+          <li class="marker:text-red-400">
+            <div class="flex justify-between">Fail <span>{{ result.failed }}</span></div>
+          </li>
+          <li class="marker:text-yellow-400">
+            <div class="flex justify-between">Warning <span>{{ result.warnings }}</span></div>
+          </li>
+          <li class="marker:text-gray-300">
+            <div class="flex justify-between">Skip <span>{{ result.skipped }}</span></div>
+          </li>
         </ul>
       </div>
     </div>
@@ -47,7 +53,9 @@
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
             <h5 class="text-blueGray-400 uppercase font-bold text-xs">Pass</h5>
-            <span class="font-semibold text-xl text-blueGray-700"> 25 </span>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.passed }}
+            </span>
           </div>
           <div class="relative w-auto pl-4 flex-initial">
             <div
@@ -59,7 +67,7 @@
         </div>
         <p class="text-sm text-blueGray-400 mt-4">
           <span class="text-emerald-500 mr-2">
-            <i class="fas fa-arrow-up"></i> 3.48%
+            <i class="fas fa-arrow-up"></i> {{ result.rate_passed }}
           </span>
           <span class="whitespace-nowrap"> Since last month </span>
         </p>
@@ -74,7 +82,9 @@
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
             <h5 class="text-blueGray-400 uppercase font-bold text-xs">Fail</h5>
-            <span class="font-semibold text-xl text-blueGray-700"> 11 </span>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.failed }}
+            </span>
           </div>
           <div class="relative w-auto pl-4 flex-initial">
             <div
@@ -86,7 +96,7 @@
         </div>
         <p class="text-sm text-blueGray-400 mt-4">
           <span class="text-red-500 mr-2">
-            <i class="fas fa-arrow-down"></i> 3.48%
+            <i class="fas fa-arrow-down"></i> {{ result.rate_failed }}
           </span>
           <span class="whitespace-nowrap"> Since last week </span>
         </p>
@@ -103,7 +113,9 @@
             <h5 class="text-blueGray-400 uppercase font-bold text-xs">
               Warning
             </h5>
-            <span class="font-semibold text-xl text-blueGray-700"> 7 </span>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.warnings }}
+            </span>
           </div>
           <div class="relative w-auto pl-4 flex-initial">
             <div
@@ -115,7 +127,7 @@
         </div>
         <p class="text-sm text-blueGray-400 mt-4">
           <span class="text-yellow-500 mr-2">
-            <i class="fas fa-arrow-down"></i> 1.10%
+            <i class="fas fa-arrow-down"></i> {{ result.rate_warnings }}
           </span>
           <span class="whitespace-nowrap"> Since yesterday </span>
         </p>
@@ -130,7 +142,9 @@
         <div class="flex flex-wrap">
           <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
             <h5 class="text-blueGray-400 uppercase font-bold text-xs">Skip</h5>
-            <span class="font-semibold text-xl text-blueGray-700"> {{ result.skipped }} </span>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.skipped }}
+            </span>
           </div>
           <div class="relative w-auto pl-4 flex-initial">
             <div
@@ -142,7 +156,7 @@
         </div>
         <p class="text-sm text-blueGray-400 mt-4">
           <span class="text-gray-500 mr-2">
-            <i class="fas fa-arrow-up"></i> 12%
+            <i class="fas fa-arrow-up"></i> {{ result.rate_skipped }}
           </span>
           <span class="whitespace-nowrap"> Since last month </span>
         </p>
@@ -531,7 +545,7 @@
     datasets: [
       {
         label: "My First Dataset",
-        data: [300, 50, 0, 100],
+        data: [{{ result.passed }}, {{ result.failed }}, {{ result.warnings }}, {{ result.skipped }}],
         backgroundColor: [
           "rgb(79, 201, 218)",
           "rgb(240, 100, 69)",

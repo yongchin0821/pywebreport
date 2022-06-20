@@ -1,6 +1,7 @@
 .history
 .idea
 .DS_store
+.pytest_cache
 dist
 node_modules
 test

@@ -4,7 +4,7 @@
 # @Author  : Yongchin
 
 import os
-from typing import Optional, List
+from typing import Optional, List, Dict
 from pydantic import BaseModel
 
 
@@ -18,12 +18,17 @@ class Results(BaseModel):
     duration: Optional[str] = None
     deselected: Optional[str] = None
 
+    rate_passed: Optional[str] = None
+    rate_failed: Optional[str] = None
+    rate_warnings: Optional[str] = None
+    rate_skipped: Optional[str] = None
+
 
 class Report(BaseModel):
     title: Optional[str] = None
     path: Optional[str] = None
     result: Optional[Results] = None
-    cases: List[str] = []
+    cases: Dict = {}
 
 
 class Formatter:
@@ -35,6 +40,7 @@ class Formatter:
         return self.common_datas
 
     def output(self):
+        self.compute()
         report_dir = os.path.dirname(self.common_datas.path)
         if not os.path.exists(report_dir):
             os.mkdir(report_dir)
@@ -42,6 +48,16 @@ class Formatter:
         f = open(report_dir + "/datas.json", "w+")
         f.write(self.common_datas.json())
         f.close()
+
+    def compute(self):
+        self.common_datas.result.rate_passed = "{:.2%}".format(float(self.common_datas.result.passed) / float(
+            self.common_datas.result.total))
+        self.common_datas.result.rate_failed = "{:.2%}".format(float(self.common_datas.result.failed) / float(
+            self.common_datas.result.total))
+        self.common_datas.result.rate_warnings = "{:.2%}".format(float(self.common_datas.result.warnings) / float(
+            self.common_datas.result.total))
+        self.common_datas.result.rate_skipped = "{:.2%}".format(float(self.common_datas.result.skipped) / float(
+            self.common_datas.result.total))
 
 
 formatter = Formatter()

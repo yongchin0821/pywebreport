@@ -27,8 +27,9 @@ def gen_report(datas: dict, path="index.html"):
 
     output_dir = os.path.dirname(path)
     src_dir = os.path.dirname(__file__)
-    shutil.copyfile(src_dir + "/city.png", output_dir + "/city.png")
-    shutil.copyfile(src_dir + "/report.css", output_dir + "/report.css")
+
+    shutil.copyfile(os.path.join(src_dir, "city.png"), os.path.join(output_dir, "city.png"))
+    shutil.copyfile(os.path.join(src_dir, "report.css"), os.path.join(output_dir, "report.css"))
 
 
 if __name__ == '__main__':
@@ -50,4 +51,4 @@ if __name__ == '__main__':
             "test_case2"
         ]
     }
-    gen_report(datas)
+    gen_report(datas, "./dist/index.html")
