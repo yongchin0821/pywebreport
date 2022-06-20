@@ -15,17 +15,21 @@ TEMPLATE_HTML = "template.html"
 STYLESHEET_HTML = "stylesheet.html"
 
 
-def gen_report(datas: dict, path="index.html"):
+def gen_report(datas: dict):
     template = env.get_template("layouts.html")
     a = template.render(
         title=datas["title"],
         result=datas["result"],
     )
-    b = open(path, "wb")
+    if datas["path"] == "" or datas["path"] is None:
+        datas["path"] = "index.html"
+    else:
+        pass
+    b = open(datas["path"], "wb")
     b.write(a.encode("utf-8"))
     b.close()
 
-    output_dir = os.path.dirname(path)
+    output_dir = os.path.dirname(datas["path"])
     src_dir = os.path.dirname(__file__)
 
     shutil.copyfile(os.path.join(src_dir, "city.png"), os.path.join(output_dir, "city.png"))
@@ -35,20 +39,31 @@ def gen_report(datas: dict, path="index.html"):
 if __name__ == '__main__':
     datas = {
         "title": "PyWebReport",
-        "path": "datas.json",
+        "path": "./dist/index.html",
         "result": {
-            "total": "2",
-            "passed": "1",
+            "total": "5",
+            "passed": "3",
             "failed": "1",
-            "warnings": "0",
+            "warnings": "1",
             "error": "0",
-            "skipped": "0",
-            "duration": "0.04762387275695801",
-            "deselected": "0"
+            "skipped": "1",
+            "duration": "0.0580599308013916",
+            "deselected": "0",
+            "rate_passed": "60.00%",
+            "rate_failed": "20.00%",
+            "rate_warnings": "20.00%",
+            "rate_skipped": "20.00%"
         },
-        "cases": [
-            "test_case1",
-            "test_case2"
-        ]
+        "cases": {
+            "testsuites/test_admin.py": [
+                "test_case1",
+                "test_case2",
+                "test_case3"
+            ],
+            "testsuites/test_home.py": [
+                "test_case1",
+                "test_case2"
+            ]
+        }
     }
-    gen_report(datas, "./dist/index.html")
+    gen_report(datas)

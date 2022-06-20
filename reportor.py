@@ -21,7 +21,7 @@ class Process:
 
     def run(self):
         result = self.get_result()
-        gen_report(result, self.result_path)
+        gen_report(result)
 
 
 if __name__ == '__main__':
