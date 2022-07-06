@@ -3,7 +3,7 @@
 # @Time    : 2022/6/1 4:32 PM
 # @Author  : Yongchin
 
-from htmlreport import HTMLReport
+from .htmlreport import HTMLReport
 
 
 def pytest_addoption(parser):

@@ -4,12 +4,9 @@
 # @Author  : Yongchin
 import os.path
 import time
-import pytest
 import sys
-from typing import Optional
-from pydantic import BaseModel
-from formatter import formatter
-from reportor import Process
+from pywebreport.formatter import formatter
+from pywebreport.reportor import Process
 
 report = {
     "result": {}

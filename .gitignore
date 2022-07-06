@@ -5,3 +5,5 @@
 dist
 node_modules
 test
+build
+*.egg-info
