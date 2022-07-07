@@ -16,6 +16,10 @@ setup(
     description="Generates a static html report based on pytest framework",
     keywords=["pytest", "py.test", "html", "reporter", "report"],
     packages=find_packages(),
+    include_package_data=True,
+    package_data={
+        'pywebreport/templates/': ['layouts.html']
+    },
     python_requires=">=3.6",
     install_requires=["pytest"],
     classifiers=[
@@ -27,7 +31,7 @@ setup(
     ],
     entry_points={
         "pytest11": [
-            "reporter = plugins.pytest.plugin",
+            "reporter = pywebreport.plugins.pytest.plugin",
         ],
     },
 )

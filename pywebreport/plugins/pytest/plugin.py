@@ -25,5 +25,5 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
-    config._html = HTMLReport()
-    config.pluginmanager.register(config._html)
+    config._htmlreport = HTMLReport()
+    config.pluginmanager.register(config._htmlreport)

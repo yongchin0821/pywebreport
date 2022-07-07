@@ -5,7 +5,7 @@
 
 import json
 import os.path
-from template.gen import gen_report
+from pywebreport.template.gen import gen_report
 
 
 class Process:

@@ -28,7 +28,7 @@ class Report(BaseModel):
     title: Optional[str] = None
     path: Optional[str] = None
     result: Optional[Results] = None
-    cases: Dict = {}
+    suites: Dict = {}
 
 
 class Formatter:

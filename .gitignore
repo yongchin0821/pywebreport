@@ -4,6 +4,5 @@
 .pytest_cache
 dist
 node_modules
-test
 build
 *.egg-info
