@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} PyWebRerport</title>
+    {% endblock %}
+    <link rel="stylesheet" href="report.css" />
+    <style type="text/css">
+      #sidebar {
+        width: 300px;
+        background-color: #f8f6f2;
+      }
+      #sidebar ul li:active {
+        background-color: #4fc9da;
+        border-radius: 0.25rem;
+      }
+      #sidebar ul li:hover {
+        background-color: #4fc9da;
+        border-radius: 1.25rem;
+      }
+      #nav {
+        height: 96px;
+      }
+      #main {
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex">
+      <div id="sidebar" class="container h-screen">
+        {% include 'layouts/sidebar.html' %}
+      </div>
+      <div class="flex flex-col w-screen">
+        <div id="nav" class="container">{% include 'layouts/nav.html' %}</div>
+        <div id="main" class="container">{% include 'layouts/main.html' %}</div>
+      </div>
+    </div>
+  </body>
+</html>

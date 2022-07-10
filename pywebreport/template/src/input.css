@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .logo-font {
+    background: -webkit-linear-gradient(315deg, #fa8072 25%, #8470ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bg-card {
+    background-color: rgba(248, 246, 242, 0.3);
+    border: 1px dashed #e8e5dd;
+  }
+  .bg-yellow-chunk {
+    background-color: rgba(248, 246, 242, 0.3);
+  }
+}

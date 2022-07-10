@@ -1,1 +1,8 @@
 .history
+.idea
+.DS_store
+.pytest_cache
+dist
+node_modules
+build
+*.egg-info
