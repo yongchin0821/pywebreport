@@ -7,16 +7,16 @@ import warnings
 
 
 def test_case1():
-    """成功的用例"""
+    """test pass"""
     assert 1
 
 
 def test_case2():
-    """警告的用例"""
-    warnings.warn(UserWarning("api v1, should use functions from v2"))
+    """test warning"""
+    warnings.warn(UserWarning("This is a warning msg"))
 
 
 @pytest.mark.skip()
 def test_case3():
-    """跳过的用例"""
+    """test skip"""
     assert 0

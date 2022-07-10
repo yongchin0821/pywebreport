@@ -6,7 +6,7 @@ import pytest
 
 
 def test_case1():
-    """失败的用例"""
+    """test fail"""
     assert 0
 
 
@@ -18,10 +18,10 @@ def test_case2():
 @pytest.fixture()
 def user():
     a = "yoyo"
-    assert a == "yoyo123"  # fixture失败就是error
+    assert a == "yoyo123"  # fixture failed with error
     return a
 
 
 def test_case3(user):
-    """error"""
+    """test error"""
     assert user == "yoyo"
