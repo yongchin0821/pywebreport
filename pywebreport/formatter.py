@@ -59,5 +59,8 @@ class Formatter:
         self.common_datas.result.rate_skipped = "{:.2%}".format(float(self.common_datas.result.skipped) / float(
             self.common_datas.result.total))
 
+        for i in self.common_datas.suites:
+            self.common_datas.suites[i]["results"]["rate_passed"] = "{:.2%}".format(float(self.common_datas.suites[i]["results"]["passed"]) / float(self.common_datas.suites[i]["results"]["counts"]))
+
 
 formatter = Formatter()

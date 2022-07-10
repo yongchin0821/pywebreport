@@ -51,10 +51,23 @@ class HTMLReport:
         suitelist = {}
         for i in items:
             fspath = i.nodeid.split(":")[0]
+
             if fspath in suitelist:
-                suitelist[fspath].append(i.name)
+                pass
             else:
-                suitelist[fspath] = [i.name]
+                suitelist[fspath] = {}
+                suitelist[fspath]["cases"] = {}
+                suitelist[fspath]["results"] = {
+                    "counts": 0,
+                    "passed": 0,
+                    "failed": 0,
+                    "warnings": 0,
+                    "error": 0,
+                    "skipped": 0,
+                }
+                suitelist[fspath]["duration"] = 0
+
+            suitelist[fspath]["cases"][i.name] = {}
 
         report["suites"] = suitelist
 
@@ -69,9 +82,20 @@ class HTMLReport:
             print('nodeid：%s' % results.nodeid)
             print('description:%s' % str(item.function.__doc__))
             print(('运行结果: %s' % results.outcome))
+            if results.passed:
+                report["suites"][results.fspath]["results"]["counts"] += 1
+                report["suites"][results.fspath]["cases"][results.head_line]["status"] = "passed"
+                report["suites"][results.fspath]["cases"][results.head_line]["duration"] = round(results.duration, 3)
+                report["suites"][results.fspath]["duration"] += round(results.duration, 3)
+                report["suites"][results.fspath]["results"]["passed"] += 1
 
         if results.skipped:
             print("skip")
+            report["suites"][results.fspath]["results"]["counts"] += 1
+            report["suites"][results.fspath]["cases"][results.head_line]["status"] = "skip"
+            report["suites"][results.fspath]["cases"][results.head_line]["duration"] = round(results.duration, 3)
+            report["suites"][results.fspath]["duration"] += round(results.duration, 3)
+            report["suites"][results.fspath]["results"]["skipped"] += 1
 
         if results.failed:
             if getattr(results, "when", None) == "call":
@@ -82,6 +106,11 @@ class HTMLReport:
                     failed = 1
             else:
                 errors = 1
+            report["suites"][results.fspath]["results"]["counts"] += 1
+            report["suites"][results.fspath]["cases"][results.head_line]["status"] = "failed"
+            report["suites"][results.fspath]["cases"][results.head_line]["duration"] = round(results.duration, 3)
+            report["suites"][results.fspath]["duration"] += round(results.duration, 3)
+            report["suites"][results.fspath]["results"]["failed"] += 1
 
     def pytest_sessionfinish(self, session):
         exec_file = sys.argv[0]

@@ -20,6 +20,7 @@ def gen_report(datas: dict):
     a = template.render(
         title=datas["title"],
         result=datas["result"],
+        suites=datas["suites"],
     )
     if datas["path"] == "" or datas["path"] is None:
         datas["path"] = "index.html"
