@@ -75,6 +75,7 @@ class HTMLReport:
     def pytest_runtest_makereport(self, item, call):
         out = yield
         results = out.get_result()
+        case_name = results.head_line.split('.')[-1]
 
         if results.when == "call":
             print('测试报告：%s' % results)
@@ -84,16 +85,16 @@ class HTMLReport:
             print(('运行结果: %s' % results.outcome))
             if results.passed:
                 report["suites"][results.fspath]["results"]["counts"] += 1
-                report["suites"][results.fspath]["cases"][results.head_line]["status"] = "passed"
-                report["suites"][results.fspath]["cases"][results.head_line]["duration"] = round(results.duration, 3)
+                report["suites"][results.fspath]["cases"][case_name]["status"] = "passed"
+                report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
                 report["suites"][results.fspath]["duration"] += round(results.duration, 3)
                 report["suites"][results.fspath]["results"]["passed"] += 1
 
         if results.skipped:
             print("skip")
             report["suites"][results.fspath]["results"]["counts"] += 1
-            report["suites"][results.fspath]["cases"][results.head_line]["status"] = "skip"
-            report["suites"][results.fspath]["cases"][results.head_line]["duration"] = round(results.duration, 3)
+            report["suites"][results.fspath]["cases"][case_name]["status"] = "skip"
+            report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
             report["suites"][results.fspath]["duration"] += round(results.duration, 3)
             report["suites"][results.fspath]["results"]["skipped"] += 1
 
@@ -107,8 +108,8 @@ class HTMLReport:
             else:
                 errors = 1
             report["suites"][results.fspath]["results"]["counts"] += 1
-            report["suites"][results.fspath]["cases"][results.head_line]["status"] = "failed"
-            report["suites"][results.fspath]["cases"][results.head_line]["duration"] = round(results.duration, 3)
+            report["suites"][results.fspath]["cases"][case_name]["status"] = "failed"
+            report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
             report["suites"][results.fspath]["duration"] += round(results.duration, 3)
             report["suites"][results.fspath]["results"]["failed"] += 1
 
