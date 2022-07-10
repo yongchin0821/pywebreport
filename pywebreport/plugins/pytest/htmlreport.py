@@ -32,7 +32,10 @@ class HTMLReport:
         report["result"]["total"] = total
         report["result"]["exec"] = total - len(deselected)
         report["result"]["passed"] = len(passed)
-        report["result"]["failed"] = len(failed)
+
+        failed_count = len(failed) + len(error)
+        report["result"]["failed"] = failed_count
+
         report["result"]["error"] = len(error)
         report["result"]["warnings"] = len(warnings)
         report["result"]["skipped"] = len(skipped)
