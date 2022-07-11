@@ -6,17 +6,18 @@ import pytest
 import warnings
 
 
-def test_case1():
-    """test pass"""
-    assert 1
+class TestA:
+    def test_case1(self):
+        """test pass"""
+        assert 1
+
+    def test_case2(self):
+        """test warning"""
+        warnings.warn(UserWarning("This is a warning msg"))
 
 
-def test_case2():
-    """test warning"""
-    warnings.warn(UserWarning("This is a warning msg"))
-
-
-@pytest.mark.skip()
-def test_case3():
-    """test skip"""
-    assert 0
+class TestB:
+    @pytest.mark.skip()
+    def test_case3(self):
+        """test skip"""
+        assert 0

@@ -71,32 +71,37 @@ class HTMLReport:
 
         report["suites"] = suitelist
 
+    def _record_case(self, results, status):
+        if "." in results.head_line:
+            class_name = results.head_line.split('.')[0]
+            case_name = results.head_line.split('.')[-1]
+        else:
+            class_name = ""
+            case_name = results.head_line
+
+        report["suites"][results.fspath]["results"]["counts"] += 1
+        report["suites"][results.fspath]["cases"][case_name]["status"] = status
+        report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
+        report["suites"][results.fspath]["cases"][case_name]["className"] = class_name
+        report["suites"][results.fspath]["duration"] += round(results.duration, 3)
+        report["suites"][results.fspath]["results"][status] += 1
+
     @pytest.hookimpl(tryfirst=True, hookwrapper=True)
     def pytest_runtest_makereport(self, item, call):
         out = yield
         results = out.get_result()
-        case_name = results.head_line.split('.')[-1]
 
         if results.when == "call":
-            print('测试报告：%s' % results)
-            print('步骤：%s' % results.when)
-            print('nodeid：%s' % results.nodeid)
-            print('description:%s' % str(item.function.__doc__))
-            print(('运行结果: %s' % results.outcome))
+            # print('测试报告：%s' % results)
+            # print('步骤：%s' % results.when)
+            # print('nodeid：%s' % results.nodeid)
+            # print('description:%s' % str(item.function.__doc__))
+            # print(('运行结果: %s' % results.outcome))
             if results.passed:
-                report["suites"][results.fspath]["results"]["counts"] += 1
-                report["suites"][results.fspath]["cases"][case_name]["status"] = "passed"
-                report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
-                report["suites"][results.fspath]["duration"] += round(results.duration, 3)
-                report["suites"][results.fspath]["results"]["passed"] += 1
+                self._record_case(results, "passed")
 
         if results.skipped:
-            print("skip")
-            report["suites"][results.fspath]["results"]["counts"] += 1
-            report["suites"][results.fspath]["cases"][case_name]["status"] = "skip"
-            report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
-            report["suites"][results.fspath]["duration"] += round(results.duration, 3)
-            report["suites"][results.fspath]["results"]["skipped"] += 1
+            self._record_case(results, "skipped")
 
         if results.failed:
             if getattr(results, "when", None) == "call":
@@ -107,11 +112,7 @@ class HTMLReport:
                     failed = 1
             else:
                 errors = 1
-            report["suites"][results.fspath]["results"]["counts"] += 1
-            report["suites"][results.fspath]["cases"][case_name]["status"] = "failed"
-            report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
-            report["suites"][results.fspath]["duration"] += round(results.duration, 3)
-            report["suites"][results.fspath]["results"]["failed"] += 1
+            self._record_case(results, "failed")
 
     def pytest_sessionfinish(self, session):
         exec_file = sys.argv[0]
@@ -120,7 +121,6 @@ class HTMLReport:
         if input_path:
             report_path = os.path.join(exec_path, input_path)
         else:
-
             report_path = os.path.join(exec_path, "temps/index.html")
 
         report_title = session.config.getoption("--title")
