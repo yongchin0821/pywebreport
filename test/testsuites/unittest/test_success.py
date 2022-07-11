@@ -7,9 +7,9 @@ import unittest
 
 
 class UnitTestCase(unittest.TestCase):
-
     def test_case1(self):
         """test pass"""
+        print(123)
         assert 1
 
     def test_case2(self):
