@@ -4,7 +4,7 @@
 # @Author  : Yongchin
 
 import unittest
-from test.testsuites.unittest.test_success import UnitTestCase
+
 from pywebreport import WebReportRunner
 
 if __name__ == '__main__':
