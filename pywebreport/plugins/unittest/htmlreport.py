@@ -28,19 +28,18 @@ class _TestResult(unittest.TestResult):
         self.success_count = 0
         self.failure_count = 0
         self.error_count = 0
+        self.skip_count = 0
         self.verbosity = verbosity
         self.suitelist = {}
 
         # Log is a list of Log in 4 tuple
         # (
-        #   Log code (0: success; 1: fail; 2: error),
+        #   Log code (0: success; 1: fail; 2: error; 3:skip),
         #   TestCase object,
         #   Test output (byte string),
         #   stack trace,
         # )
         self.result = []
-        # 增加一个测试通过率 --Findyou
-        self.passrate = float(0)
 
     def startTest(self, test):
         test.class_name = test.__class__.__qualname__
@@ -100,7 +99,7 @@ class _TestResult(unittest.TestResult):
         # self.fields["testClass"].add(test.class_name)
         # self.complete_output()
 
-    def addSuccess(self, test):
+    def addSuccess(self, test: unittest.case.TestCase) -> None:
         self.success_count += 1
         TestResult.addSuccess(self, test)
         output = self.complete_output()
@@ -114,7 +113,7 @@ class _TestResult(unittest.TestResult):
         # else:
         #     sys.stderr.write('.')
 
-    def addError(self, test, err):
+    def addError(self, test: unittest.case.TestCase, err) -> None:
         self.error_count += 1
         TestResult.addError(self, test, err)
         _, _exc_str = self.errors[-1]
@@ -129,7 +128,7 @@ class _TestResult(unittest.TestResult):
         # else:
         #     sys.stderr.write('E')
 
-    def addFailure(self, test, err):
+    def addFailure(self, test: unittest.case.TestCase, err) -> None:
         self.failure_count += 1
         TestResult.addFailure(self, test, err)
         _, _exc_str = self.failures[-1]
@@ -143,6 +142,15 @@ class _TestResult(unittest.TestResult):
         #     sys.stderr.write('\n')
         # else:
         #     sys.stderr.write('F')
+
+    def addSkip(self, test: unittest.case.TestCase, reason: str) -> None:
+        self.skip_count += 1
+        TestResult.addSkip(self, test, reason)
+        _, _exc_str = self.skipped[-1]
+        output = self.complete_output()
+        self.result.append((3, test, output, _exc_str))
+        test.run_time = '{:.3}'.format((time.time() - self.start_time))
+        self._record_case(test, "skipped")
 
     def stopTestRun(self) -> None:
         # report["suites"] = self.suitelist
@@ -158,6 +166,41 @@ class _TestResult(unittest.TestResult):
 
 
 class WebReportRunner:
+    def __init__(self, report=None, title="pywebreport"):
+        self.input_path = report
+        self.title = title
+
+    def _compute(self, suites):
+        total = 0
+        passed = 0
+        failed = 0
+        error = 0
+        warnings = 0
+        skipped = 0
+        duration = 0
+
+        for file_name in suites:
+            duration += suites[file_name]["duration"]
+            total += suites[file_name]["results"]['counts']
+            passed += suites[file_name]["results"]['passed']
+            failed += suites[file_name]["results"]['failed']
+            error += suites[file_name]["results"]['warnings']
+            warnings += suites[file_name]["results"]['error']
+            skipped += suites[file_name]["results"]['skipped']
+
+        report["result"]["total"] = total
+        report["result"]["exec"] = passed + failed + error + skipped
+        report["result"]["passed"] = passed
+
+        failed_count = failed + error
+        report["result"]["failed"] = failed_count
+
+        report["result"]["error"] = error
+        report["result"]["warnings"] = warnings
+        report["result"]["skipped"] = skipped
+        report["result"]["duration"] = duration
+        report["result"]["deselected"] = ""
+
     def run(self, testlist, rerun=0, save_last_run=False):
         """
         Run the given test case or test suite.
@@ -168,40 +211,17 @@ class WebReportRunner:
 
         exec_file = sys.argv[0]
         exec_path = os.path.dirname(exec_file)
-        input_path = ""
-        if input_path:
-            report_path = os.path.join(exec_path, input_path)
+
+        if self.input_path:
+            report_path = os.path.join(exec_path, self.input_path)
         else:
             report_path = os.path.join(exec_path, "temps/index.html")
 
-        report_title = "ddd"
+        report_title = self.title
         report["path"] = report_path
         report["title"] = report_title
-
-        # self.run_times += 1
-        # self.generate_report(testlist, result)
-
-        total = terminalreporter._numcollected
-        passed = terminalreporter.stats.get("passed", [])
-        failed = terminalreporter.stats.get("failed", [])
-        error = terminalreporter.stats.get("error", [])
-        warnings = terminalreporter.stats.get("warnings", [])
-        skipped = terminalreporter.stats.get("skipped", [])
-        duration = time.time() - terminalreporter._sessionstarttime
-        deselected = terminalreporter.stats.get("deselected", [])  # 过滤的用例数
-
-        report["result"]["total"] = total
-        report["result"]["exec"] = total - len(deselected)
-        report["result"]["passed"] = len(passed)
-
-        failed_count = len(failed) + len(error)
-        report["result"]["failed"] = failed_count
-
-        report["result"]["error"] = len(error)
-        report["result"]["warnings"] = len(warnings)
-        report["result"]["skipped"] = len(skipped)
-        report["result"]["duration"] = duration
-        report["result"]["deselected"] = len(deselected)
+        report["suites"] = result.suitelist
+        self._compute(report["suites"])
 
         formatter.use_formatter(report)
         formatter.output()

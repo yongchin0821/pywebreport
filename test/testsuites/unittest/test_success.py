@@ -6,7 +6,7 @@ import warnings
 import unittest
 
 
-class UnitTestCase(unittest.TestCase):
+class UnitTestSuccessCase(unittest.TestCase):
     def test_case1(self):
         """test pass"""
         print(123)
@@ -16,6 +16,7 @@ class UnitTestCase(unittest.TestCase):
         """test warning"""
         warnings.warn(UserWarning("This is a warning msg"))
 
+    @unittest.skip("demonstrating skipping")
     def test_case3(self):
         """test skip"""
         assert 0
