@@ -1,5 +1,9 @@
-<div id="dashboard" class="tabcontent">{% include './pages/dashboard.html' %}</div>
-<div id="testsuites" class="tabcontent">{% include './pages/testsuite.html' %}</div>
+<div id="dashboard" class="tabcontent" style="display: none">
+  {% include './pages/dashboard.html' %}
+</div>
+<div id="testsuites" class="tabcontent" style="display: none">
+  {% include './pages/testsuite.html' %}
+</div>
 
 <script>
   function openPage(pageName) {
