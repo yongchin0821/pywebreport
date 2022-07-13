@@ -1,7 +1,7 @@
 <div id="result-list" class="flex mt-4">
-  <div class="w-full w-1/4 px-4">
+  <div class="w-full w-4/12 px-4">
     <div class="bg-card">
-      <ul id="myUL">
+      <!-- <ul id="myUL">
         <li>
           <span class="caret">Beverages</span>
           <ul id="myUL" class="nested">
@@ -25,23 +25,128 @@
             </li>
           </ul>
         </li>
-      </ul>
+      </ul> -->
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full mb-6 shadow-lg rounded"
+      >
+        <div class="rounded-t mb-0 px-4 py-3 border-0">
+          <div class="flex flex-wrap items-center">
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+              <h3 class="font-semibold text-base text-blueGray-700">
+                Results Preview
+              </h3>
+            </div>
+            <div
+              class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+            >
+              <button
+                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+                type="button"
+                style="transition: all 0.15s ease"
+              >
+                See all
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="block w-full overflow-x-auto">
+          <!-- Projects table -->
+          <table
+            id="results-preview-table"
+            class="items-center w-full bg-transparent border-collapse"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Case name
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Class name
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Duration
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in suites %}
+              <tr>
+                <th
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+                >
+                  {{ i }}
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["results"]["counts"]}}
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["duration"]}}
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 marker:text-green-500"
+                >
+                  <i class=" mr-4"></i>
+                  {{suites[i]["results"]["rate_passed"]}}
+                </td>
+              </tr>
+              {% endfor %} {% for i in suites %} {% for case in
+              suites[i]["cases"] %}
+              <tr>
+                <th
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+                >
+                  {{case}}
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["cases"][case]["className"]}}
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["cases"][case]["duration"]}}
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["cases"][case]["status"]}}
+                </td>
+              </tr>
+              {% endfor %} {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="w-full w-3/4 px-4">
+  <div class="w-full w-8/12 px-4">
     <div class="bg-card">fdsfdsf</div>
   </div>
 </div>
 
 <style>
-
   #myUL {
     list-style-type: none;
     padding-left: 20px;
   }
 
   .caret {
-
   }
 
   .caret::before {
