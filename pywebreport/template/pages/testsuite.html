@@ -81,7 +81,7 @@
             </thead>
             <tbody>
               {% for i in suites %} {% for case in suites[i]["cases"] %}
-              <tr>
+              <tr onclick="trClick(this)" key={{suites[i]["cases"][case]["status"]}}>
                 <th class="border-t-0 p-1 m-2">
                   <div class="relative p-2">
                     {% if suites[i]["cases"][case]["status"] == 'passed' %}
@@ -198,8 +198,8 @@
 </style>
 
 <script>
-  var toggler = document.getElementsByClassName("caret");
-  var i;
+  let toggler = document.getElementsByClassName("caret");
+  let i;
 
   for (i = 0; i < toggler.length; i++) {
     toggler[i].addEventListener("click", function () {
@@ -207,4 +207,11 @@
       this.classList.toggle("caret-down");
     });
   }
+  const suites = {{suites}}
+
+  const trClick = (ele)=>{
+    console.log(123);
+    console.log(ele);
+    console.log(suites);
+  } 
 </script>
