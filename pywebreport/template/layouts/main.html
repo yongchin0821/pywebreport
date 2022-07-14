@@ -6,7 +6,7 @@
 </div>
 
 <script>
-  function openPage(pageName) {
+  function openPage(pageName,elmnt) {
     let i, tabcontent, tablinks;
 
     tabcontent = document.getElementsByClassName("tabcontent");
@@ -15,10 +15,7 @@
     }
 
     document.getElementById(pageName).style.display = "block";
-    elmnt.style.color = color;
-    elmnt.style.background = bgcolor;
-    elmnt.style.borderRight = borderstyle;
   }
   // Get the element with id="defaultOpen" and click on it
-  document.getElementById("defaultOpen").click();
+  document.getElementById("dashboard").click();
 </script>
