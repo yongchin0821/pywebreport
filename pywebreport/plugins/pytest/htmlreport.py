@@ -83,20 +83,26 @@ class HTMLReport:
         report["suites"][results.fspath]["cases"][case_name]["status"] = status
         report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
         report["suites"][results.fspath]["cases"][case_name]["className"] = class_name
+        report["suites"][results.fspath]["cases"][case_name]["consoleLog"] = results.sections
+        report["suites"][results.fspath]["cases"][case_name]["errMsg"] = results.longreprtext
+        report["suites"][results.fspath]["cases"][case_name]["desc"] = results.desc
+        report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.exec_time
         report["suites"][results.fspath]["duration"] += round(results.duration, 3)
         report["suites"][results.fspath]["results"][status] += 1
+        print("sections: " + str(results.sections))
 
     @pytest.hookimpl(tryfirst=True, hookwrapper=True)
     def pytest_runtest_makereport(self, item, call):
         out = yield
         results = out.get_result()
+        results.desc = item.function.__doc__
+
+        if results.when == "setup":
+            self._struct_time = time.localtime()
+
+        results.exec_time = time.strftime("%Y-%m-%d %H:%M:%S", self._struct_time)
 
         if results.when == "call":
-            # print('测试报告：%s' % results)
-            # print('步骤：%s' % results.when)
-            # print('nodeid：%s' % results.nodeid)
-            # print('description:%s' % str(item.function.__doc__))
-            # print(('运行结果: %s' % results.outcome))
             if results.passed:
                 self._record_case(results, "passed")
 
@@ -112,6 +118,7 @@ class HTMLReport:
                     failed = 1
             else:
                 errors = 1
+
             self._record_case(results, "failed")
 
     def pytest_sessionfinish(self, session):
