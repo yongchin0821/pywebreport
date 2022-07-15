@@ -15,9 +15,15 @@ class TestA:
         """test warning"""
         warnings.warn(UserWarning("This is a warning msg"))
 
+    def test_print(self):
+        print("this test has print msg")
+
 
 class TestB:
     @pytest.mark.skip()
     def test_case3(self):
         """test skip"""
         assert 0
+
+    def test_err_print(self):
+        print("this test has error msg")

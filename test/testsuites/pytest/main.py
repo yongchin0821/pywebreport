@@ -8,6 +8,6 @@ import os
 import sys
 
 if __name__ == '__main__':
-    args = ['./', '-s', '-q', '--report', 'result/report.html']
-    # args = ['./', '-s', '-q', '--alluredir', './report']
+    args = ['./', '-q', '--report', 'result/report.html']
+    # args = ['./', '-q', '--alluredir', './report']
     pytest.main(args)
