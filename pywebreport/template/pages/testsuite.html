@@ -81,7 +81,7 @@
             </thead>
             <tbody>
               {% for i in suites %} {% for case in suites[i]["cases"] %}
-              <tr onclick="trClick(this)" key={{suites[i]["cases"][case]["status"]}}>
+              <tr onclick="trClick(this)" key={{suites[i]["cases"][case]["id"]}}>
                 <th class="border-t-0 p-1 m-2">
                   <div class="relative p-2">
                     {% if suites[i]["cases"][case]["status"] == 'passed' %}
@@ -144,13 +144,13 @@
   <div class="w-full w-7/12 px-4 h-full">
     <div class="bg-card">
       <div id="test-title" class="flex text-2xl font-bold p-4 gap-x-4">
-        <div class="rounded-lg bg-green-100 text-green-400 px-1 py-1">pass</div>
-        <div class="text-center">test_case1</div>
+        <div id="test-title-status" class="rounded-lg bg-green-100 text-green-400 px-1 py-1">pass</div>
+        <div id="test-title-name" class="text-center">test_case1</div>
       </div>
       <div id="test-content" class="p-4">
-        <div id="description" class="py-2">
+        <div class="py-2">
           <section class="text-xl font-semibold">description</section>
-          <div>
+          <div id="description">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
             impedit facere, itaque, amet, error accusantium nam ducimus
             reiciendis incidunt quis similique! Accusantium provident sint
@@ -159,7 +159,8 @@
         </div>
         <div id="output" class="py-2">
           <section class="text-xl font-semibold">Execution</section>
-          <div>Lorem ipsum dolor sit amet.</div>
+          <div id="consoleLog" style="white-space:pre">Lorem ipsum dolor sit amet.</div>
+          <div id="errMsg" style="white-space:pre"></div>
         </div>
       </div>
     </div>
@@ -209,9 +210,36 @@
   }
   const suites = {{suites}}
 
-  const trClick = (ele)=>{
-    console.log(123);
-    console.log(ele);
-    console.log(suites);
+  const trClick = (ele) => {
+    // console.log(suites);
+    let nodelist = ele.getAttribute("key").split("::")
+    let cases = suites[nodelist[0]].cases
+    switch (nodelist.length){
+      case 2:
+        for (let key in cases) {
+          if (cases[key].className == "" && key == nodelist.at(-1)){
+            document.getElementById("test-title-status").innerHTML = cases[key].status
+            document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
+            document.getElementById("description").innerHTML = cases[key].desc
+            document.getElementById("consoleLog").innerHTML = cases[key].consoleLog
+            document.getElementById("errMsg").innerHTML = cases[key].errMsg
+          }
+        }
+        break
+      case 3:
+      for (let key in cases) {
+          // console.log(cases)
+          if (cases[key].className == nodelist[1] && key == nodelist.at(-1)){
+            document.getElementById("test-title-status").innerHTML = cases[key].status
+            document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
+            document.getElementById("description").innerHTML = cases[key].desc
+            document.getElementById("consoleLog").innerHTML = cases[key].consoleLog
+            document.getElementById("errMsg").innerHTML = cases[key].errMsg
+          }
+        }
+        break
+    }
+
+
   } 
 </script>
