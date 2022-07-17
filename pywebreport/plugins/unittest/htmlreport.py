@@ -17,6 +17,7 @@ report = {
     "result": {}
 }
 origin_stdout = sys.stdout
+origin_stderr = sys.stderr
 
 
 class OutputRedirector:
@@ -24,10 +25,12 @@ class OutputRedirector:
 
     def __init__(self, fp):
         self.fp = fp
+        self.stdbak = fp
 
     def write(self, s):
         self.fp.write(s)
-        origin_stdout.write(str(s))
+        self.stdbak.write(str(s) + "\r")
+        # origin_stdout.write(str(s))
 
     def writelines(self, lines):
         self.fp.writelines(lines)
@@ -46,17 +49,16 @@ class _TestResult(unittest.TestResult):
 
     def __init__(self, verbosity=2):
         TestResult.__init__(self)
-        self.stdout0 = None
-        self.stderr0 = None
         self.success_count = 0
         self.failure_count = 0
         self.error_count = 0
         self.skip_count = 0
         self.verbosity = verbosity
         self.suitelist = {}
-        # Log is a list of Log in 4 tuple
+
+        # result is a list of result in 4 tuple
         # (
-        #   Log code (0: success; 1: fail; 2: error; 3:skip),
+        #   Result code (0: success; 1: fail; 2: error; 3:skip),
         #   TestCase object,
         #   Test output (byte string),
         #   stack trace,
@@ -70,9 +72,12 @@ class _TestResult(unittest.TestResult):
     def startTest(self, test):
         test.class_name = test.__class__.__qualname__
         test.method_name = test.__dict__['_testMethodName']
-        test.method_doc = test.shortDescription()
+        test.method_doc = test.shortDescription() if test.shortDescription() is not None else ""
         test_id_list = test.id().split('.')
         test.file_name = test_id_list[0] + ".py"
+
+        self._struct_time = time.localtime()
+        test.exec_time = time.strftime("%Y-%m-%d %H:%M:%S", self._struct_time)
 
         if test.file_name in self.suitelist:
             pass
@@ -95,8 +100,6 @@ class _TestResult(unittest.TestResult):
         self.start_time = time.time()
 
         # just one buffer for both stdout and stderr
-        a = type(sys.stderr).__name__
-        b = type(sys.stdout).__name__
         self.outputBuffer = StringIO()
         stdout_redirector.fp = self.outputBuffer
         stderr_redirector.fp = self.outputBuffer
@@ -116,19 +119,10 @@ class _TestResult(unittest.TestResult):
             self.sys_stdout = None
             self.sys_stderr = None
 
-        # origin_stdout.mode = "w+"
-        # print(origin_stdout.read())
         return self.outputBuffer.getvalue()
 
     def stopTest(self, test):
-        # Usually one of addSuccess, addError or addFailure would have been called.
-        # But there are some path in unittest that would bypass this.
-        # We must disconnect stdout in stopTest(), which is guaranteed to be called.
         test.run_time = '{:.3}s'.format((time.time() - self.start_time))
-
-        # self.fields['results'].append(test)
-        # self.fields["testClass"].add(test.class_name)
-        # self.complete_output()
 
     def addSuccess(self, test: unittest.case.TestCase) -> None:
         self.success_count += 1
@@ -184,18 +178,24 @@ class _TestResult(unittest.TestResult):
         self._record_case(test, "skipped")
 
     def stopTestRun(self) -> None:
-        # report["suites"] = self.suitelist
         pass
 
     def _record_case(self, results, status):
         self.suitelist[results.file_name]["results"]["counts"] += 1
-        self.suitelist[results.file_name]["cases"][results.method_name]["id"] = results.id()
+
+        test_id = results.id().replace(".", "::")
+        test_id_list = test_id.split("::")
+        test_id_list[0] += ".py"
+        test_id = "::".join(test_id_list)
+        self.suitelist[results.file_name]["cases"][results.method_name]["id"] = test_id
+
         self.suitelist[results.file_name]["cases"][results.method_name]["desc"] = results.method_doc
         self.suitelist[results.file_name]["cases"][results.method_name]["status"] = status
         self.suitelist[results.file_name]["cases"][results.method_name]["duration"] = round(float(results.run_time), 3)
         self.suitelist[results.file_name]["cases"][results.method_name]["className"] = results.class_name
         self.suitelist[results.file_name]["cases"][results.method_name]["consoleLog"] = self.result[-1][2]
         self.suitelist[results.file_name]["cases"][results.method_name]["errMsg"] = self.result[-1][3]
+        self.suitelist[results.file_name]["cases"][results.method_name]["execTime"] = results.exec_time
         self.suitelist[results.file_name]["duration"] += round(float(results.run_time), 3)
         self.suitelist[results.file_name]["results"][status] += 1
 

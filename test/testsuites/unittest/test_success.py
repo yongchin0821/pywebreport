@@ -14,7 +14,6 @@ logger.add(sys.stdout)
 class UnitTestSuccessCase(unittest.TestCase):
     def test_case1(self):
         """test pass"""
-        print(123)
         assert 1
 
     def test_case2(self):
@@ -30,8 +29,5 @@ class UnitTestSuccessCase(unittest.TestCase):
         print("this test has print msg")
 
     def test_err_print(self):
-        sys.stdout.write("this test has print msg")
-
-    def test_loguru(self):
-        logger.debug("loguru debug")
-        # pass
+        sys.stderr.write("this test has print msg")
+        raise IOError("IOError")

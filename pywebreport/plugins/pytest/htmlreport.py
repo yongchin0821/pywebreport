@@ -87,16 +87,15 @@ class HTMLReport:
         report["suites"][results.fspath]["cases"][case_name]["className"] = class_name
         report["suites"][results.fspath]["cases"][case_name]["consoleLog"] = results.sections
         report["suites"][results.fspath]["cases"][case_name]["errMsg"] = results.longreprtext
-        report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.start_time
+        report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.exec_time
         report["suites"][results.fspath]["duration"] += round(results.duration, 3)
         report["suites"][results.fspath]["results"][status] += 1
-        print("sections: " + str(results.sections))
 
     @pytest.hookimpl(tryfirst=True, hookwrapper=True)
     def pytest_runtest_makereport(self, item, call):
         out = yield
         results = out.get_result()
-        results.desc = item.function.__doc__
+        results.desc = item.function.__doc__ if item.function.__doc__ is not None else ""
 
         if results.when == "setup":
             self._struct_time = time.localtime()
