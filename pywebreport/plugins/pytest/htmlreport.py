@@ -80,13 +80,14 @@ class HTMLReport:
             case_name = results.head_line
 
         report["suites"][results.fspath]["results"]["counts"] += 1
+        report["suites"][results.fspath]["cases"][case_name]["id"] = results.nodeid
+        report["suites"][results.fspath]["cases"][case_name]["desc"] = results.desc
         report["suites"][results.fspath]["cases"][case_name]["status"] = status
         report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
         report["suites"][results.fspath]["cases"][case_name]["className"] = class_name
         report["suites"][results.fspath]["cases"][case_name]["consoleLog"] = results.sections
         report["suites"][results.fspath]["cases"][case_name]["errMsg"] = results.longreprtext
-        report["suites"][results.fspath]["cases"][case_name]["desc"] = results.desc
-        report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.exec_time
+        report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.start_time
         report["suites"][results.fspath]["duration"] += round(results.duration, 3)
         report["suites"][results.fspath]["results"][status] += 1
         print("sections: " + str(results.sections))
