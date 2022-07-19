@@ -159,8 +159,8 @@
         </div>
         <div id="output" class="py-2">
           <section class="text-xl font-semibold">Execution</section>
-          <div id="consoleLog" style="white-space:pre">Lorem ipsum dolor sit amet.</div>
-          <div id="errMsg" style="white-space:pre"></div>
+          <div id="consoleLog" style="white-space:pre-wrap">Lorem ipsum dolor sit amet.</div>
+          <div id="errMsg" style="white-space:pre-wrap"></div>
         </div>
       </div>
     </div>
@@ -210,6 +210,24 @@
   }
   const suites = {{suites}}
 
+  const updateResult = (testcase) => {
+    document.getElementById("description").innerHTML = testcase.desc
+    document.getElementById("consoleLog").innerHTML = testcase.consoleLog
+    document.getElementById("errMsg").innerHTML = testcase.errMsg
+    document.getElementById("test-title-status").innerHTML = testcase.status
+    switch (testcase.status){
+      case "passed":
+        document.getElementById("test-title-status").className = "rounded-lg bg-green-100 text-green-400 px-1 py-1"
+        break
+      case "failed":
+        document.getElementById("test-title-status").className = "rounded-lg bg-red-100 text-red-400 px-1 py-1"
+        break
+      case "skipped":
+        document.getElementById("test-title-status").className = "rounded-lg bg-gray-100 text-grat-400 px-1 py-1"
+        break
+    }
+  }
+  
   const trClick = (ele) => {
     // console.log(suites);
     let nodelist = ele.getAttribute("key").split("::")
@@ -218,11 +236,8 @@
       case 2:
         for (let key in cases) {
           if (cases[key].className == "" && key == nodelist.at(-1)){
-            document.getElementById("test-title-status").innerHTML = cases[key].status
             document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
-            document.getElementById("description").innerHTML = cases[key].desc
-            document.getElementById("consoleLog").innerHTML = cases[key].consoleLog
-            document.getElementById("errMsg").innerHTML = cases[key].errMsg
+            updateResult(cases[key])
           }
         }
         break
@@ -230,11 +245,8 @@
       for (let key in cases) {
           // console.log(cases)
           if (cases[key].className == nodelist[1] && key == nodelist.at(-1)){
-            document.getElementById("test-title-status").innerHTML = cases[key].status
             document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
-            document.getElementById("description").innerHTML = cases[key].desc
-            document.getElementById("consoleLog").innerHTML = cases[key].consoleLog
-            document.getElementById("errMsg").innerHTML = cases[key].errMsg
+            updateResult(cases[key])
           }
         }
         break
