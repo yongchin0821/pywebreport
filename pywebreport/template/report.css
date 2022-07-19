@@ -706,10 +706,6 @@ video {
   margin-right: 0.5rem;
 }
 
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
 .mb-0 {
   margin-bottom: 0px;
 }
@@ -790,10 +786,6 @@ video {
   height: 0.5rem;
 }
 
-.h-7 {
-  height: 1.75rem;
-}
-
 .min-h-full {
   min-height: 100%;
 }
@@ -842,28 +834,16 @@ video {
   width: 3rem;
 }
 
-.w-4\/12 {
-  width: 33.333333%;
-}
-
-.w-8\/12 {
-  width: 66.666667%;
-}
-
 .w-5\/12 {
   width: 41.666667%;
 }
 
-.w-7\/12 {
-  width: 58.333333%;
-}
-
-.w-4 {
-  width: 1rem;
-}
-
 .w-1 {
   width: 0.25rem;
+}
+
+.w-7\/12 {
+  width: 58.333333%;
 }
 
 .min-w-0 {
@@ -954,22 +934,8 @@ video {
   justify-content: space-between;
 }
 
-.justify-items-center {
-  justify-items: center;
-}
-
 .gap-y-6 {
   row-gap: 1.5rem;
-}
-
-.gap-x-1 {
-  -moz-column-gap: 0.25rem;
-       column-gap: 0.25rem;
-}
-
-.gap-x-2 {
-  -moz-column-gap: 0.5rem;
-       column-gap: 0.5rem;
 }
 
 .gap-x-4 {
@@ -1179,16 +1145,6 @@ video {
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
-.bg-green-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(74 222 128 / var(--tw-bg-opacity));
-}
-
-.bg-green-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
-}
-
 .bg-green-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
@@ -1281,11 +1237,6 @@ video {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .pt-2 {
@@ -1450,24 +1401,14 @@ video {
   color: rgb(249 115 22 / var(--tw-text-opacity));
 }
 
-.text-green-500 {
+.text-green-400 {
   --tw-text-opacity: 1;
-  color: rgb(34 197 94 / var(--tw-text-opacity));
-}
-
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity));
+  color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
-}
-
-.text-green-400 {
-  --tw-text-opacity: 1;
-  color: rgb(74 222 128 / var(--tw-text-opacity));
 }
 
 .opacity-0 {
@@ -1550,10 +1491,6 @@ video {
   color: rgb(209 213 219 );
 }
 
-.marker\:text-green-500 *::marker {
-  color: rgb(34 197 94 );
-}
-
 .marker\:text-sky-300::marker {
   color: rgb(125 211 252 );
 }
@@ -1568,10 +1505,6 @@ video {
 
 .marker\:text-gray-300::marker {
   color: rgb(209 213 219 );
-}
-
-.marker\:text-green-500::marker {
-  color: rgb(34 197 94 );
 }
 
 .hover\:bg-gray-700:hover {
