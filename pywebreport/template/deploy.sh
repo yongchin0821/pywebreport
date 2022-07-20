@@ -4,9 +4,9 @@ set -e
 # gen dist
 rm -rf dist
 mkdir dist
-cp index.html dist/
-cp report.css dist/
-cp city.png dist/
+cp ../../test/testsuites/pytest/result/report.html dist/
+cp ../../test/testsuites/pytest/result/report.css dist/
+cp ../../test/testsuites/pytest/result/city.png dist/
 
 # cd folder
 cd dist

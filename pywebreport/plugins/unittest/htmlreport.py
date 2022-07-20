@@ -5,7 +5,6 @@
 import os.path
 import time
 import sys
-import pytest
 from pywebreport.formatter import formatter
 from pywebreport.reportor import Process
 import unittest
@@ -46,7 +45,6 @@ stderr_redirector = OutputRedirector(sys.stderr)
 class _TestResult(unittest.TestResult):
     # note: _TestResult is a pure representation of results.
     # It lacks the output and reporting ability compares to unittest._TextTestResult.
-
     def __init__(self, verbosity=2):
         TestResult.__init__(self)
         self.success_count = 0

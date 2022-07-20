@@ -26,6 +26,11 @@ def gen_report(datas: dict):
         datas["path"] = "index.html"
     else:
         pass
+
+    report_dir = os.path.dirname(datas["path"])
+    if not os.path.exists(report_dir) and report_dir != "":
+        os.mkdir(report_dir)
+
     b = open(datas["path"], "wb")
     b.write(a.encode("utf-8"))
     b.close()
