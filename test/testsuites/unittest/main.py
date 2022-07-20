@@ -12,28 +12,11 @@ from XTestRunner import HTMLTestRunner
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     loader = unittest.TestLoader()
+    # suite.addTest(UnitTestSuccessCase("test_case1"))
     # suite.addTest(UnitTestSuccessCase("test_case2"))
-    # suite.addTest(UnitTestSuccessCase("test_err_print"))
-
     # suite.addTest(loader.loadTestsFromTestCase(UnitTestCase))
     # suite = loader.loadTestsFromTestCase(UnitTestCase)
     suite.addTest(loader.discover("."))
 
     runner = WebReportRunner(report="result/report.html")
     test_result = runner.run(suite)
-    # for case, reason in test_result.failures:
-    #     print(case.id())
-    #     print(reason)
-
-    # with(open('result/report.html', 'wb')) as fp:
-    #     runner = HTMLTestRunner(
-    #         stream=fp,
-    #         title='test report',
-    #         description='describe: ... ',
-    #         language='en',
-    #     )
-    #     runner.run(
-    #         testlist=suite,
-    #         rerun=2,
-    #         save_last_run=False
-    #     )

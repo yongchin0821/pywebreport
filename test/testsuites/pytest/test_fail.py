@@ -5,16 +5,6 @@
 import pytest
 
 
-def test_case1():
-    """test fail"""
-    assert 0
-
-
-def test_case2():
-    """こんにちは世界"""
-    raise IOError(123)
-
-
 @pytest.fixture()
 def user():
     a = "yoyo"
@@ -22,6 +12,15 @@ def user():
     return a
 
 
-def test_case3(user):
-    """test error"""
-    assert user == "yoyo"
+class TestC:
+    def test_case1(self):
+        f"""test fail"""
+        assert 0
+
+    def test_case2(self):
+        f"""こんにちは世界"""
+        raise IOError(123)
+
+    def test_case3(self, user):
+        """test error"""
+        assert user == "yoyo"

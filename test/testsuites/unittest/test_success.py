@@ -5,10 +5,6 @@
 import sys
 import warnings
 import unittest
-from loguru import logger
-
-logger.remove()
-logger.add(sys.stdout)
 
 
 class UnitTestSuccessCase(unittest.TestCase):

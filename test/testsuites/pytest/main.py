@@ -9,5 +9,5 @@ import sys
 
 if __name__ == '__main__':
     args = ['./', '-q', '--report', 'result/report.html']
-    # args = ['./', '-q', '--alluredir', './report']
+    # args = ['./test_ddt.py', '-q', '--alluredir', './report']
     pytest.main(args)
