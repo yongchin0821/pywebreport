@@ -122,8 +122,9 @@ class HTMLReport:
             self._record_case(results, "failed")
 
     def pytest_sessionfinish(self, session):
-        exec_file = sys.argv[0]
-        exec_path = os.path.dirname(exec_file)
+        # exec_file = sys.argv[0]
+        # exec_path = os.path.dirname(exec_file)
+        exec_path = session.startpath
         input_path = session.config.getoption("--report")
         if input_path:
             report_path = os.path.join(exec_path, input_path)

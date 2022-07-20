@@ -50,17 +50,20 @@ class Formatter:
         f.close()
 
     def compute(self):
-        self.common_datas.result.rate_passed = "{:.2%}".format(float(self.common_datas.result.passed) / float(
-            self.common_datas.result.total))
-        self.common_datas.result.rate_failed = "{:.2%}".format(float(self.common_datas.result.failed) / float(
-            self.common_datas.result.total))
-        self.common_datas.result.rate_warnings = "{:.2%}".format(float(self.common_datas.result.warnings) / float(
-            self.common_datas.result.total))
-        self.common_datas.result.rate_skipped = "{:.2%}".format(float(self.common_datas.result.skipped) / float(
-            self.common_datas.result.total))
+        if int(self.common_datas.result.total) == 0:
+            raise IOError("result total is 0, please check the testcases are collected")
+        else:
+            self.common_datas.result.rate_passed = "{:.2%}".format(float(self.common_datas.result.passed) / float(
+                self.common_datas.result.total))
+            self.common_datas.result.rate_failed = "{:.2%}".format(float(self.common_datas.result.failed) / float(
+                self.common_datas.result.total))
+            self.common_datas.result.rate_warnings = "{:.2%}".format(float(self.common_datas.result.warnings) / float(
+                self.common_datas.result.total))
+            self.common_datas.result.rate_skipped = "{:.2%}".format(float(self.common_datas.result.skipped) / float(
+                self.common_datas.result.total))
 
-        for i in self.common_datas.suites:
-            self.common_datas.suites[i]["results"]["rate_passed"] = "{:.2%}".format(float(self.common_datas.suites[i]["results"]["passed"]) / float(self.common_datas.suites[i]["results"]["counts"]))
+            for i in self.common_datas.suites:
+                self.common_datas.suites[i]["results"]["rate_passed"] = "{:.2%}".format(float(self.common_datas.suites[i]["results"]["passed"]) / float(self.common_datas.suites[i]["results"]["counts"]))
 
 
 formatter = Formatter()

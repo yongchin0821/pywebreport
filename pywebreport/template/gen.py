@@ -41,6 +41,9 @@ def gen_report(datas: dict):
     shutil.copyfile(os.path.join(src_dir, "city.png"), os.path.join(output_dir, "city.png"))
     shutil.copyfile(os.path.join(src_dir, "report.css"), os.path.join(output_dir, "report.css"))
 
+    print("Report generated successfully")
+    print("Report path: " + datas["path"])
+
 
 if __name__ == '__main__':
     datas = {
