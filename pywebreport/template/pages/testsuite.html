@@ -1,0 +1,260 @@
+<div id="result-list" class="flex">
+  <div class="w-full w-5/12 px-4">
+    <div class="bg-card h-full">
+      <!-- <ul id="myUL">
+        <li>
+          <span class="caret">Beverages</span>
+          <ul id="myUL" class="nested">
+            <li>Water</li>
+            <li>Coffee</li>
+            <li>
+              <span class="caret">Tea</span>
+              <ul id="myUL" class="nested">
+                <li>Black Tea</li>
+                <li>White Tea</li>
+                <li>
+                  <span class="caret">Green Tea</span>
+                  <ul id="myUL" class="nested">
+                    <li>Sencha</li>
+                    <li>Gyokuro</li>
+                    <li>Matcha</li>
+                    <li>Pi Lo Chun</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul> -->
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full shadow-lg rounded"
+      >
+        <div class="rounded-t mb-0 px-4 py-3 border-0">
+          <div class="flex flex-wrap items-center">
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+              <h3 class="font-semibold text-base text-blueGray-700">
+                Results Preview
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="block w-full overflow-x-auto">
+          <!-- Projects table -->
+          <table
+            id="results-preview-table"
+            class="items-center w-full bg-transparent border-collapse"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Case name
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Class name
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Duration
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in suites %} {% for case in suites[i]["cases"] %}
+              <tr onclick="trClick(this)" key={{suites[i]["cases"][case]["id"]}}>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    {% if suites[i]["cases"][case]["status"] == 'passed' %}
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-green-500"
+                    ></div>
+                    {% elif suites[i]["cases"][case]["status"] == 'failed' %}
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-red-500"
+                    ></div>
+                    {% else %}
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-gray-500"
+                    ></div>
+                    {% endif %}
+                    <div class="text-xs">{{case}}</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["cases"][case]["className"]}}
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  {{suites[i]["cases"][case]["duration"]}}
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  {% if suites[i]["cases"][case]["status"] == 'passed' %}
+                  <div
+                    class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-xs"
+                  >
+                    {{suites[i]["cases"][case]["status"]}}
+                  </div>
+                  {% elif suites[i]["cases"][case]["status"] == 'failed' %}
+                  <div
+                    class="rounded-lg bg-red-100 text-red-400 px-1 py-1 text-xs"
+                  >
+                    {{suites[i]["cases"][case]["status"]}}
+                  </div>
+                  {% else %}
+                  <div
+                    class="rounded-lg bg-gray-100 text-gray-400 px-1 py-1 text-xs"
+                  >
+                    {{suites[i]["cases"][case]["status"]}}
+                  </div>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %} {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full w-7/12 px-4">
+    <div class="bg-card h-full">
+      <div id="test-title" class="flex text-2xl font-bold p-4 gap-x-4">
+        <div id="test-title-status" class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-center w-28">pass</div>
+        <div id="test-title-name" class="text-center">test_case1</div>
+      </div>
+      <div id="test-content" class="p-4">
+        <div class="py-2">
+          <section class="text-xl font-semibold">Information</section>
+          <div class="p-2">
+            <span class="font-bold">start_time: </span><span id="start_time" >xxx</span>
+          </div>
+          <div  class="p-2">
+            <span class="font-bold">duration: </span><span id="duration">xxx</span>
+          </div>
+        </div>
+        <div class="py-2">
+          <section class="text-xl font-semibold">Description</section>
+          <div id="description" class="p-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
+            impedit facere, itaque, amet, error accusantium nam ducimus
+            reiciendis incidunt quis similique! Accusantium provident sint
+            voluptate tempora? Soluta beatae ea repudiandae?
+          </div>
+        </div>
+        <div id="output" class="py-2">
+          <section class="text-xl font-semibold">Execution</section>
+          <div id="consoleLog" class="p-2" style="white-space:pre-wrap">Lorem ipsum dolor sit amet.</div>
+          <div id="errMsg" class="p-2" style="white-space:pre-wrap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #myUL {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+
+  .caret {
+  }
+
+  .caret::before {
+    content: "\003E";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .caret-down::before {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  .nested {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+</style>
+
+<script>
+  let toggler = document.getElementsByClassName("caret");
+  let i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function () {
+      this.parentElement.querySelector(".nested").classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+  const suites = {{suites}}
+
+  const updateResult = (testcase) => {
+    document.getElementById("start_time").innerHTML = testcase.execTime
+    document.getElementById("duration").innerHTML = testcase.duration
+    document.getElementById("description").innerHTML = testcase.desc
+    document.getElementById("consoleLog").innerHTML = testcase.consoleLog
+    document.getElementById("errMsg").innerHTML = testcase.errMsg
+    document.getElementById("test-title-status").innerHTML = testcase.status
+    switch (testcase.status){
+      case "passed":
+        document.getElementById("test-title-status").className = "rounded-lg bg-green-100 text-green-400 px-1 py-1 text-center w-28"
+        document.getElementById("errMsg").className = "p-2" 
+        break
+      case "failed":
+        document.getElementById("test-title-status").className = "rounded-lg bg-red-100 text-red-400 px-1 py-1 text-center w-28"
+        document.getElementById("errMsg").className = "bg-red-50 p-2" 
+        break
+      case "skipped":
+        document.getElementById("test-title-status").className = "rounded-lg bg-gray-100 text-grat-400 px-1 py-1 text-center w-28"
+        document.getElementById("errMsg").className = "bg-gray-50 p-2" 
+        break
+    }
+  }
+  
+  const trClick = (ele) => {
+    // console.log(suites);
+    let nodelist = ele.getAttribute("key").split("::")
+    let cases = suites[nodelist[0]].cases
+    switch (nodelist.length){
+      case 2:
+        for (let key in cases) {
+          if (cases[key].className == "" && key == nodelist.at(-1)){
+            document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
+            updateResult(cases[key])
+          }
+        }
+        break
+      case 3:
+      for (let key in cases) {
+          // console.log(cases)
+          if (cases[key].className == nodelist[1] && key == nodelist.at(-1)){
+            document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
+            updateResult(cases[key])
+          }
+        }
+        break
+    }
+
+
+  } 
+</script>

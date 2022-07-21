@@ -2,18 +2,21 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2022/6/1 4:34 PM
 # @Author  : Yongchin
-
-import unittest
-import os
 import sys
-from test.testsuites.unittest.test_success import UnitTestCase
+import unittest
+from test_success import UnitTestSuccessCase
+from pywebreport import WebReportRunner
+from XTestRunner import HTMLTestRunner
+
 
 if __name__ == '__main__':
-    # args = ['./testsuites', '-s', '-q', '--report', 'result/report.html']
     suite = unittest.TestSuite()
     loader = unittest.TestLoader()
-    # suite.addTest(UnitTestCase("test_case1"))
-    suite.addTest(loader.loadTestsFromTestCase(UnitTestCase))
+    # suite.addTest(UnitTestSuccessCase("test_case1"))
+    # suite.addTest(UnitTestSuccessCase("test_case2"))
+    # suite.addTest(loader.loadTestsFromTestCase(UnitTestCase))
+    # suite = loader.loadTestsFromTestCase(UnitTestCase)
+    suite.addTest(loader.discover("."))
 
-    runner = unittest.TextTestRunner()
-    runner.run(suite)
+    runner = WebReportRunner(report="result/report.html")
+    test_result = runner.run(suite)

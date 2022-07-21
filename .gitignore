@@ -6,3 +6,10 @@ dist
 node_modules
 build
 *.egg-info
+
+
+__pycache__
+allure-report
+result
+temps
+

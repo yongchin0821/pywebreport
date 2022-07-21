@@ -10,14 +10,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="pywebreport",
-    version="0.0.1",
+    version="0.1.0",
     author="Yongchin",
     author_email="yongchin39@qq.com",
     license="MIT",
     description="Generates a static html report based on pytest framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    keywords=["pytest", "py.test", "html", "reporter", "report"],
+    keywords=["pytest", "unittest", "htmlreport", "reporter", "report", "pytest report"],
     url="https://github.com/yongchin0821/pywebreport",
     project_urls={
         "Bug Tracker": "https://github.com/yongchin0821/pywebreport/issues",

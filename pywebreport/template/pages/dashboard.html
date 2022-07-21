@@ -1,0 +1,578 @@
+<div id="result-head" class="flex flex-wrap">
+  <div class="w-full lg:w-1/3 px-4">
+    <div class="flex items-center bg-card rounded-lg overflow-hidden">
+      <div class="w-32 h-32">
+        <canvas id="chartDoughnut"></canvas>
+      </div>
+      <div class="w-full">
+        <div class="m-4">
+          <h1 class="text-2xl font-extrabold">{{ result.rate_passed}}</h1>
+          <p class="text-sm text-slate-500">rate of pass</p>
+        </div>
+
+        <ul role="list" class="m-4 list-disc space-y-2 text-slate-500">
+          <li class="marker:text-sky-300">
+            <div class="flex justify-between">
+              Success <span>{{ result.passed }}</span>
+            </div>
+          </li>
+          <li class="marker:text-red-400">
+            <div class="flex justify-between">
+              Fail <span>{{ result.failed }}</span>
+            </div>
+          </li>
+          <li class="marker:text-yellow-400">
+            <div class="flex justify-between">
+              Warning <span>{{ result.warnings }}</span>
+            </div>
+          </li>
+          <li class="marker:text-gray-300">
+            <div class="flex justify-between">
+              Skip <span>{{ result.skipped }}</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-full lg:w-2/3 px-4">
+    <div
+      id="banner"
+      style="
+        background-position: 100% 100%;
+        background-size: 500px auto;
+        background-image: url('city.png');
+        background-color: #f6f1e9;
+      "
+      class="rounded-lg bg-no-repeat h-full"
+    >
+      <div class="px-14 py-12 text-2xl font-extrabold">
+        <p>Good Report</p>
+        <p>is a tool of productivity</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="result-card" class="flex flex-wrap mt-4">
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">Pass</h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.passed }}
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-emerald-500"
+            >
+              P
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-emerald-500 mr-2">
+            <i class="fas fa-arrow-up"></i> {{ result.rate_passed }}
+          </span>
+          <span class="whitespace-nowrap"> Case been passed </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">Fail</h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.failed }}
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500"
+            >
+              F
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-red-500 mr-2">
+            <i class="fas fa-arrow-down"></i> {{ result.rate_failed }}
+          </span>
+          <span class="whitespace-nowrap"> Case been failed </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+              Warning
+            </h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.warnings }}
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-yellow-500"
+            >
+              W
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-yellow-500 mr-2">
+            <i class="fas fa-arrow-down"></i> {{ result.rate_warnings }}
+          </span>
+          <span class="whitespace-nowrap"> Just warning </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">Skip</h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              {{ result.skipped }}
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-gray-500"
+            >
+              S
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-gray-500 mr-2">
+            <i class="fas fa-arrow-up"></i> {{ result.rate_skipped }}
+          </span>
+          <span class="whitespace-nowrap"> Case been skiped </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="result-list" class="flex flex-wrap mt-4">
+  <div class="w-full xl:w-8/12 px-2">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full shadow-lg rounded"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Results Preview
+            </h3>
+          </div>
+          <div
+            class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+          >
+            <a href="#testsuites" onclick="openPage('testsuites', this)">
+              <button
+                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+                type="button"
+                style="transition: all 0.15s ease"
+              >
+                See all
+              </button></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table
+          id="results-preview-table"
+          class="items-center w-full bg-transparent border-collapse"
+        >
+          <thead>
+            <tr>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                TEST name
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Counts
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Running time
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Success Rate
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in suites %}
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                {{ i }}
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{suites[i]["results"]["counts"]}}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                {{suites[i]["duration"]}}
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                {{suites[i]["results"]["rate_passed"]}}
+              </td>
+            </tr>
+            {% endfor %}
+
+            <!-- <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                /test_features/
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                4,569
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                340
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                46,53%
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                /test_features/home
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3,985
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                319
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
+                46,53%
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                /test_features/user
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3,985
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                319
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
+                46,53%
+              </td>
+            </tr> -->
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="w-full xl:w-4/12 px-2">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full shadow-lg rounded"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Total of testig
+            </h3>
+          </div>
+          <div
+            class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+          >
+            <button
+              class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+              type="button"
+              style="transition: all 0.15s ease"
+            >
+              See all
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead class="thead-light">
+            <tr>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Type
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Number
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                style="min-width: 140px"
+              ></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Admin
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                1,480
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">60%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
+                    >
+                      <div
+                        style="width: 60%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Role
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                5,480
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">70%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200"
+                    >
+                      <div
+                        style="width: 70%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Pay
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                4,807
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">80%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-purple-200"
+                    >
+                      <div
+                        style="width: 80%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Service
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3,678
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">75%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-blue-200"
+                    >
+                      <div
+                        style="width: 75%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Performance
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                2,645
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">30%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-orange-200"
+                    >
+                      <div
+                        style="width: 30%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Required chart.js -->
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+  integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<!-- Chart doughnut -->
+<script>
+  const dataDoughnut = {
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [{{ result.passed }}, {{ result.failed }}, {{ result.warnings }}, {{ result.skipped }}],
+        backgroundColor: [
+          "rgb(79, 201, 218)",
+          "rgb(240, 100, 69)",
+          "rgb(232, 196, 68)",
+          "#E4E6EF",
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const configDoughnut = {
+    type: "doughnut",
+    data: dataDoughnut,
+    options: {},
+  };
+
+  var chartBar = new Chart(
+    document.getElementById("chartDoughnut"),
+    configDoughnut
+  );
+</script>
+
+<style type="text/css">
+  #banner {
+    background-position: 100% 100%;
+    background-image: url("city.png");
+  }
+</style>
