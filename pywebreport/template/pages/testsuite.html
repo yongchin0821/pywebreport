@@ -70,7 +70,7 @@
             </thead>
             <tbody>
               {% for i in suites %} {% for case in suites[i]["cases"] %}
-              <tr onclick="trClick(this)" key={{suites[i]["cases"][case]["id"]}}>
+              <tr class="testcase-table" onclick="trClick(this)" key={{suites[i]["cases"][case]["id"]}}>
                 <th class="border-t-0 p-1 m-2">
                   <div class="relative p-2">
                     {% if suites[i]["cases"][case]["status"] == 'passed' %}
@@ -194,6 +194,10 @@
   .active {
     display: block;
   }
+
+  .testcase-active{
+    background-color: aqua;
+  }
 </style>
 
 <script>
@@ -231,8 +235,17 @@
     }
   }
   
+  let selected_ele = null
+
   const trClick = (ele) => {
-    // console.log(suites);
+    // console.log(ele);
+    
+    // change selected case style
+    if (selected_ele != null){ selected_ele.style.background = "none" }
+    ele.style.background = "rgba(248, 246, 242, 0.75)"
+    selected_ele = ele
+    
+    // update result
     let nodelist = ele.getAttribute("key").split("::")
     let cases = suites[nodelist[0]].cases
     switch (nodelist.length){

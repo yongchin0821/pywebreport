@@ -6,6 +6,11 @@ import sys
 import warnings
 import unittest
 
+from loguru import logger
+import logging
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+
 
 class UnitTestSuccessCase(unittest.TestCase):
     def test_case1(self):
@@ -27,3 +32,8 @@ class UnitTestSuccessCase(unittest.TestCase):
     def test_err_print(self):
         sys.stderr.write("this test has print msg")
         raise IOError("IOError")
+
+    def test_loguru(self):
+        sys.stderr.write("stderr msg")
+        logger.error("this logging msg")
+        logging.error("this logging msg2")
