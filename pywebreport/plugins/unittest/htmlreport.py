@@ -15,6 +15,7 @@ from io import StringIO
 report = {
     "result": {}
 }
+
 origin_stdout = sys.stdout
 origin_stderr = sys.stderr
 
@@ -28,7 +29,7 @@ class OutputRedirector:
 
     def write(self, s):
         self.fp.write(s)
-        self.stdbak.write(str(s) + "\r")
+        self.stdbak.write("{}\n".format(str(s)))
         # origin_stdout.write(str(s))
 
     def writelines(self, lines):
@@ -45,7 +46,7 @@ stderr_redirector = OutputRedirector(sys.stderr)
 class _TestResult(unittest.TestResult):
     # note: _TestResult is a pure representation of results.
     # It lacks the output and reporting ability compares to unittest._TextTestResult.
-    def __init__(self, verbosity=2):
+    def __init__(self, logging, verbosity=2):
         TestResult.__init__(self)
         self.success_count = 0
         self.failure_count = 0
@@ -53,6 +54,7 @@ class _TestResult(unittest.TestResult):
         self.skip_count = 0
         self.verbosity = verbosity
         self.suitelist = {}
+        self.logging = logging
 
         # result is a list of result in 4 tuple
         # (
@@ -99,6 +101,12 @@ class _TestResult(unittest.TestResult):
 
         # just one buffer for both stdout and stderr
         self.outputBuffer = StringIO()
+
+        # handler = logging.handlers.SysLogHandler(address=('localhost', 514))
+        # logger.add(handler)
+
+        # self.logging.addHandler(self.outputBuffer)
+        # self.logging.StreamHandler(self.outputBuffer)
         stdout_redirector.fp = self.outputBuffer
         stderr_redirector.fp = self.outputBuffer
         self.sys_stdout = sys.stdout
@@ -199,9 +207,10 @@ class _TestResult(unittest.TestResult):
 
 
 class WebReportRunner:
-    def __init__(self, report=None, title="pywebreport"):
+    def __init__(self, report=None, title="pywebreport", logging=None):
         self.input_path = report
         self.title = title
+        self.logging = logging
 
     def _compute(self, suites):
         total = 0
@@ -238,7 +247,7 @@ class WebReportRunner:
         """
         Run the given test case or test suite.
         """
-        result = _TestResult()
+        result = _TestResult(self.logging)
         testlist(result)
         self.end_time = datetime.datetime.now()
 
