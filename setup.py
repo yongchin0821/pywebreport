@@ -25,7 +25,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     python_requires=">=3.7",
-    install_requires=["pytest", "pydantic"],
+    install_requires=["pytest", "pydantic", "jinja2"],
     classifiers=[
         "Framework :: Pytest",
         "Topic :: Software Development :: Testing",
