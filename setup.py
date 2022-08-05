@@ -25,7 +25,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     python_requires=">=3.7",
-    install_requires=["pytest"],
+    install_requires=["pytest", "pydantic"],
     classifiers=[
         "Framework :: Pytest",
         "Topic :: Software Development :: Testing",
