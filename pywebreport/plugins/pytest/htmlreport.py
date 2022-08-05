@@ -74,7 +74,7 @@ class HTMLReport:
     def _record_case(self, results, status):
         if "." in results.head_line:
             class_name = results.head_line.split('.')[0]
-            case_name = results.head_line.split('.')[-1]
+            case_name = results.head_line.split(f'{class_name}.')[1]
         else:
             class_name = ""
             case_name = results.head_line

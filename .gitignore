@@ -6,8 +6,7 @@ dist
 node_modules
 build
 *.egg-info
-
-
+venv
 __pycache__
 allure-report
 result
