@@ -1,3 +1,9 @@
+# v0.1.2
+### bugfix
+- fix #3 change the way to get ``class_name``&``case_name``
+### chore:
+- add pydantic、jinja2 requires
+
 # v0.1.1
 
 1. fix garbled code
