@@ -72,19 +72,14 @@ class HTMLReport:
         report["suites"] = suitelist
 
     def _record_case(self, results, status):
-        if "." in results.head_line:
-            class_name = results.head_line.split('.')[0]
-            case_name = results.head_line.split(f'{class_name}.')[1]
-        else:
-            class_name = ""
-            case_name = results.head_line
+        case_name = results.case_name
 
         report["suites"][results.fspath]["results"]["counts"] += 1
         report["suites"][results.fspath]["cases"][case_name]["id"] = results.nodeid
         report["suites"][results.fspath]["cases"][case_name]["desc"] = results.desc
         report["suites"][results.fspath]["cases"][case_name]["status"] = status
         report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
-        report["suites"][results.fspath]["cases"][case_name]["className"] = class_name
+        report["suites"][results.fspath]["cases"][case_name]["className"] = results.class_name
         report["suites"][results.fspath]["cases"][case_name]["consoleLog"] = results.sections
         report["suites"][results.fspath]["cases"][case_name]["errMsg"] = results.longreprtext
         report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.exec_time
@@ -96,7 +91,9 @@ class HTMLReport:
         out = yield
         results = out.get_result()
         results.desc = item.function.__doc__ if item.function.__doc__ is not None else ""
-
+        results.class_name = item.cls.__name__ if item.cls is not None else ""
+        results.case_name = item.name
+        
         if results.when == "setup":
             self._struct_time = time.localtime()
 
