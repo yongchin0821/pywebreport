@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+    <title> PyWebRerport</title>
+    
+    <link rel="stylesheet" href="./report.css" />
+    <style type="text/css">
+      #sidebar {
+        width: 300px;
+        background-color: #f8f6f2;
+      }
+      #sidebar ul li:active {
+        background-color: #4fc9da;
+        border-radius: 0.25rem;
+      }
+      #sidebar ul li:hover {
+        background-color: #4fc9da;
+        border-radius: 1.25rem;
+      }
+      #nav {
+        height: 96px;
+      }
+      #main {
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex">
+      <div id="sidebar" class="container h-screen">
+        <aside class="flex flex-col items-center">
+      <div class="logo-font text-xl p-3 font-extrabold">PyWebReport</div>
+      <ul class="flex flex-col gap-y-6">
+         <li class="rounded-lg">
+            <a id="defaultOpen" href="#dashboard" class="flex items-center p-2 text-base font-normal rounded text-gray-900  dark:text-white  dark:hover:bg-gray-700"  onclick="openPage('dashboard', this)">
+               <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
+               <span  class="ml-3">Dashboard</span>
+            </a>
+         </li>
+         <li>
+            <a href="#testsuites" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700" onclick="openPage('testsuites', this)">
+               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">TestSuites</span>
+               <!-- <span class="inline-flex justify-center items-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">Pro</span> -->
+            </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700">
+               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M104 496H72a24 24 0 0 1-24-24V328a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v144a24 24 0 0 1-24 24z" fill="currentColor"></path><path d="M328 496h-32a24 24 0 0 1-24-24V232a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v240a24 24 0 0 1-24 24z" fill="currentColor"></path><path d="M440 496h-32a24 24 0 0 1-24-24V120a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v352a24 24 0 0 1-24 24z" fill="currentColor"></path><path d="M216 496h-32a24 24 0 0 1-24-24V40a24 24 0 0 1 24-24h32a24 24 0 0 1 24 24v432a24 24 0 0 1-24 24z" fill="currentColor"></path></svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">Performance</span>
+               <!-- <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium text-blue-600 bg-blue-200 rounded-full dark:bg-blue-900 dark:text-blue-200">3</span> -->
+            </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700">
+               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M64 164v244a56 56 0 0 0 56 56h272a56 56 0 0 0 56-56V164a4 4 0 0 0-4-4H68a4 4 0 0 0-4 4zm267 151.63l-63.69 63.68a16 16 0 0 1-22.62 0L181 315.63c-6.09-6.09-6.65-16-.85-22.38a16 16 0 0 1 23.16-.56L240 329.37V224.45c0-8.61 6.62-16 15.23-16.43A16 16 0 0 1 272 224v105.37l36.69-36.68a16 16 0 0 1 23.16.56c5.8 6.37 5.24 16.29-.85 22.38z" fill="currentColor"></path><rect x="32" y="48" width="448" height="80" rx="32" ry="32" fill="currentColor"></rect></svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">Archives</span>
+            </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700">
+               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">Demo</span>
+            </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700">
+               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"></path></svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">Demo</span>
+            </a>
+         </li>
+         <li>
+            <a class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700">
+               <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg>
+               <span class="flex-1 ml-3 whitespace-nowrap">Demo</span>
+            </a>
+         </li>
+      </ul>
+</aside>
+      </div>
+      <div class="flex flex-col w-screen">
+        <div id="nav" class="container"><div class="h-full flex items-center justify-between px-7">
+  <!-- 左 -->
+  <div></div>
+  <!-- 右 -->
+  <div class="flex item-center">
+    <div>
+      <form class="flex items-center">
+        <label for="simple-search" class="sr-only">Search</label>
+        <div class="relative w-full">
+          <div
+            class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
+          >
+            <svg
+              class="w-5 h-5 text-gray-500 dark:text-gray-400"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="simple-search"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="p-2.5 ml-2 text-sm font-medium border hover:text-white rounded-lg hover:bg-blue-500 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          style="border-color: #efe9e1"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            ></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+    <div class="flex items-center">
+      <a href="https://github.com/yongchin0821/pywebreport">
+        <button
+          class="p-2 ml-2 rounded-lg border"
+          style="border-color: #efe9e1"
+        >
+          <svg
+            class="w-6 h-6"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M256 32C132.3 32 32 134.9 32 261.7c0 101.5 64.2 187.5 153.2 217.9a17.56 17.56 0 0 0 3.8.4c8.3 0 11.5-6.1 11.5-11.4c0-5.5-.2-19.9-.3-39.1a102.4 102.4 0 0 1-22.6 2.7c-43.1 0-52.9-33.5-52.9-33.5c-10.2-26.5-24.9-33.6-24.9-33.6c-19.5-13.7-.1-14.1 1.4-14.1h.1c22.5 2 34.3 23.8 34.3 23.8c11.2 19.6 26.2 25.1 39.6 25.1a63 63 0 0 0 25.6-6c2-14.8 7.8-24.9 14.2-30.7c-49.7-5.8-102-25.5-102-113.5c0-25.1 8.7-45.6 23-61.6c-2.3-5.8-10-29.2 2.2-60.8a18.64 18.64 0 0 1 5-.5c8.1 0 26.4 3.1 56.6 24.1a208.21 208.21 0 0 1 112.2 0c30.2-21 48.5-24.1 56.6-24.1a18.64 18.64 0 0 1 5 .5c12.2 31.6 4.5 55 2.2 60.8c14.3 16.1 23 36.6 23 61.6c0 88.2-52.4 107.6-102.3 113.3c8 7.1 15.2 21.1 15.2 42.5c0 30.7-.3 55.5-.3 63c0 5.4 3.1 11.5 11.4 11.5a19.35 19.35 0 0 0 4-.4C415.9 449.2 480 363.1 480 261.7C480 134.9 379.7 32 256 32z"
+              fill="currentColor"
+            ></path>
+          </svg></button
+      ></a>
+    </div>
+  </div>
+</div></div>
+        <div id="main" class="container"><div id="dashboard" class="tabcontent" style="display: none">
+  <div id="result-head" class="flex flex-wrap">
+  <div class="w-full lg:w-1/3 px-4">
+    <div class="flex items-center bg-card rounded-lg overflow-hidden">
+      <div class="w-32 h-32">
+        <canvas id="chartDoughnut"></canvas>
+      </div>
+      <div class="w-full">
+        <div class="m-4">
+          <h1 class="text-2xl font-extrabold">50.00%</h1>
+          <p class="text-sm text-slate-500">rate of pass</p>
+        </div>
+
+        <ul role="list" class="m-4 list-disc space-y-2 text-slate-500">
+          <li class="marker:text-sky-300">
+            <div class="flex justify-between">
+              Pass <span>5</span>
+            </div>
+          </li>
+          <li class="marker:text-red-400">
+            <div class="flex justify-between">
+              Fail <span>4</span>
+            </div>
+          </li>
+          <li class="marker:text-yellow-400">
+            <div class="flex justify-between">
+              Warning <span>1</span>
+            </div>
+          </li>
+          <li class="marker:text-gray-300">
+            <div class="flex justify-between">
+              Skip <span>1</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="w-full lg:w-2/3 px-4">
+    <div
+      id="banner"
+      style="
+        background-position: 100% 100%;
+        background-size: 500px auto;
+        background-image: url('city.png');
+        background-color: #f6f1e9;
+      "
+      class="rounded-lg bg-no-repeat h-full"
+    >
+      <div class="px-14 py-12 text-2xl font-extrabold">
+        <p>Good Report</p>
+        <p>is a tool of productivity</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="result-card" class="flex flex-wrap mt-4">
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">Pass</h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              5
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-emerald-500"
+            >
+              P
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-emerald-500 mr-2">
+            <i class="fas fa-arrow-up"></i> 50.00%
+          </span>
+          <span class="whitespace-nowrap"> Case been passed </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">Fail</h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              4
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-red-500"
+            >
+              F
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-red-500 mr-2">
+            <i class="fas fa-arrow-down"></i> 40.00%
+          </span>
+          <span class="whitespace-nowrap"> Case been failed </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">
+              Warning
+            </h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              1
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-yellow-500"
+            >
+              W
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-yellow-500 mr-2">
+            <i class="fas fa-arrow-down"></i> 10.00%
+          </span>
+          <span class="whitespace-nowrap"> Just warning </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full md:w-6/12 xl:w-3/12 px-4">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk rounded mb-6 xl:mb-0 shadow-lg"
+    >
+      <div class="flex-auto p-4">
+        <div class="flex flex-wrap">
+          <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
+            <h5 class="text-blueGray-400 uppercase font-bold text-xs">Skip</h5>
+            <span class="font-semibold text-xl text-blueGray-700">
+              1
+            </span>
+          </div>
+          <div class="relative w-auto pl-4 flex-initial">
+            <div
+              class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 shadow-lg rounded-full bg-gray-500"
+            >
+              S
+            </div>
+          </div>
+        </div>
+        <p class="text-sm text-blueGray-400 mt-4">
+          <span class="text-gray-500 mr-2">
+            <i class="fas fa-arrow-up"></i> 10.00%
+          </span>
+          <span class="whitespace-nowrap"> Case been skiped </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="result-list" class="flex flex-wrap mt-4">
+  <div class="w-full xl:w-8/12 px-2">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full shadow-lg rounded"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Results Preview
+            </h3>
+          </div>
+          <div
+            class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+          >
+            <a href="#testsuites" onclick="openPage('testsuites', this)">
+              <button
+                class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+                type="button"
+                style="transition: all 0.15s ease"
+              >
+                See all
+              </button></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table
+          id="results-preview-table"
+          class="items-center w-full bg-transparent border-collapse"
+        >
+          <thead>
+            <tr>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                TEST name
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Counts
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Running time
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Pass Rate
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                test/testsuites/pytest/test_ddt.py
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                2
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                0.001
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                50.00%
+              </td>
+            </tr>
+            
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                test/testsuites/pytest/test_fail.py
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                0.001
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                0.00%
+              </td>
+            </tr>
+            
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                test/testsuites/pytest/test_success.py
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                5
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                0.0
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                80.00%
+              </td>
+            </tr>
+            
+
+            <!-- <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                /test_features/
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                4,569
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                340
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-up text-emerald-500 mr-4"></i>
+                46,53%
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                /test_features/home
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3,985
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                319
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
+                46,53%
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                /test_features/user
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3,985
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                319
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <i class="fas fa-arrow-down text-orange-500 mr-4"></i>
+                46,53%
+              </td>
+            </tr> -->
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="w-full xl:w-4/12 px-2">
+    <div
+      class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full shadow-lg rounded"
+    >
+      <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <div class="flex flex-wrap items-center">
+          <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 class="font-semibold text-base text-blueGray-700">
+              Total of testig
+            </h3>
+          </div>
+          <div
+            class="relative w-full px-4 max-w-full flex-grow flex-1 text-right"
+          >
+            <button
+              class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1"
+              type="button"
+              style="transition: all 0.15s ease"
+            >
+              See all
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="block w-full overflow-x-auto">
+        <!-- Projects table -->
+        <table class="items-center w-full bg-transparent border-collapse">
+          <thead class="thead-light">
+            <tr>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Type
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              >
+                Number
+              </th>
+              <th
+                class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                style="min-width: 140px"
+              ></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Admin
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                1,480
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">60%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
+                    >
+                      <div
+                        style="width: 60%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Role
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                5,480
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">70%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200"
+                    >
+                      <div
+                        style="width: 70%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Pay
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                4,807
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">80%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-purple-200"
+                    >
+                      <div
+                        style="width: 80%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-purple-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Service
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                3,678
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">75%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-blue-200"
+                    >
+                      <div
+                        style="width: 75%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left"
+              >
+                Performance
+              </th>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                2,645
+              </td>
+              <td
+                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              >
+                <div class="flex items-center">
+                  <span class="mr-2">30%</span>
+                  <div class="relative w-full">
+                    <div
+                      class="overflow-hidden h-2 text-xs flex rounded bg-orange-200"
+                    >
+                      <div
+                        style="width: 30%"
+                        class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Required chart.js -->
+<!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"
+  integrity="sha512-sW/w8s4RWTdFFSduOTGtk4isV1+190E/GghVffMA9XczdJ2MDzSzLEubKAs5h0wzgSJOQTRYyaz73L3d6RtJSg=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<!-- Chart doughnut -->
+<script>
+  const dataDoughnut = {
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [5, 4, 1, 1],
+        backgroundColor: [
+          "rgb(79, 201, 218)",
+          "rgb(240, 100, 69)",
+          "rgb(232, 196, 68)",
+          "#E4E6EF",
+        ],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const configDoughnut = {
+    type: "doughnut",
+    data: dataDoughnut,
+    options: {},
+  };
+
+  var chartBar = new Chart(
+    document.getElementById("chartDoughnut"),
+    configDoughnut
+  );
+</script>
+
+<style type="text/css">
+  #banner {
+    background-position: 100% 100%;
+    background-image: url("city.png");
+  }
+</style>
+</div>
+<div id="testsuites" class="tabcontent" style="display: none">
+  <div id="result-list" class="flex">
+  <div class="w-full w-5/12 px-4">
+    <div class="bg-card h-full">
+      <!-- <ul id="myUL">
+        <li>
+          <span class="caret">Beverages</span>
+          <ul id="myUL" class="nested">
+            <li>Water</li>
+            <li>Coffee</li>
+            <li>
+              <span class="caret">Tea</span>
+              <ul id="myUL" class="nested">
+                <li>Black Tea</li>
+                <li>White Tea</li>
+                <li>
+                  <span class="caret">Green Tea</span>
+                  <ul id="myUL" class="nested">
+                    <li>Sencha</li>
+                    <li>Gyokuro</li>
+                    <li>Matcha</li>
+                    <li>Pi Lo Chun</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul> -->
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-yellow-chunk w-full h-full shadow-lg rounded"
+      >
+        <div class="rounded-t mb-0 px-4 py-3 border-0">
+          <div class="flex flex-wrap items-center">
+            <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+              <h3 class="font-semibold text-base text-blueGray-700">
+                Results Preview
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="block w-full overflow-x-auto">
+          <!-- Projects table -->
+          <table
+            id="results-preview-table"
+            class="items-center w-full bg-transparent border-collapse"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Case name
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Class name
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Duration
+                </th>
+                <th
+                  class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-normal text-left"
+                >
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+               
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_ddt.py::Testddt::test_case1[1+2-2]>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-red-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case1[1+2-2]</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  Testddt
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.001
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-red-100 text-red-400 px-1 py-1 text-xs"
+                  >
+                    failed
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_ddt.py::Testddt::test_case1[3+5-8]>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-green-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case1[3+5-8]</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  Testddt
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-xs"
+                  >
+                    passed
+                  </div>
+                  
+                </td>
+              </tr>
+                
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_fail.py::TestC::test_case1>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-red-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case1</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestC
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-red-100 text-red-400 px-1 py-1 text-xs"
+                  >
+                    failed
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_fail.py::TestC::test_case2>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-red-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case2</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestC
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-red-100 text-red-400 px-1 py-1 text-xs"
+                  >
+                    failed
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_fail.py::TestC::test_case3>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-red-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case3</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestC
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.001
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-red-100 text-red-400 px-1 py-1 text-xs"
+                  >
+                    failed
+                  </div>
+                  
+                </td>
+              </tr>
+                
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_success.py::TestA::test_case1>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-green-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case1</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestA
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-xs"
+                  >
+                    passed
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_success.py::TestA::test_case2>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-green-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case2</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestA
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-xs"
+                  >
+                    passed
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_success.py::TestA::test_print>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-green-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_print</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestA
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-xs"
+                  >
+                    passed
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_success.py::TestB::test_case3>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-gray-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_case3</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestB
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-gray-100 text-gray-400 px-1 py-1 text-xs"
+                  >
+                    skipped
+                  </div>
+                  
+                </td>
+              </tr>
+              
+              <tr class="testcase-table" onclick="trClick(this)" key=test/testsuites/pytest/test_success.py::TestB::test_err_print>
+                <th class="border-t-0 p-1 m-2">
+                  <div class="relative p-2">
+                    
+                    <div
+                      class="absolute w-1 h-full left-0 top-0 rounded bg-green-500"
+                    ></div>
+                    
+                    <div class="text-xs">test_err_print</div>
+                  </div>
+                </th>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  TestB
+                </td>
+                <td
+                  class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+                >
+                  0.0
+                </td>
+                <td
+                  class="border-t-0 px-2 border-l-0 border-r-0 text-s text-center p-4"
+                >
+                  
+                  <div
+                    class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-xs"
+                  >
+                    passed
+                  </div>
+                  
+                </td>
+              </tr>
+               
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="w-full w-7/12 px-4">
+    <div class="bg-card h-full">
+      <div id="test-title" class="flex text-2xl font-bold p-4 gap-x-4">
+        <div id="test-title-status" class="rounded-lg bg-green-100 text-green-400 px-1 py-1 text-center w-28">pass</div>
+        <div id="test-title-name" class="text-center">test_case1</div>
+      </div>
+      <div id="test-content" class="p-4">
+        <div class="py-2">
+          <section class="text-xl font-semibold">Information</section>
+          <div class="p-2">
+            <span class="font-bold">start_time: </span><span id="start_time" >xxx</span>
+          </div>
+          <div  class="p-2">
+            <span class="font-bold">duration: </span><span id="duration">xxx</span>
+          </div>
+        </div>
+        <div class="py-2">
+          <section class="text-xl font-semibold">Description</section>
+          <div id="description" class="p-2">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga
+            impedit facere, itaque, amet, error accusantium nam ducimus
+            reiciendis incidunt quis similique! Accusantium provident sint
+            voluptate tempora? Soluta beatae ea repudiandae?
+          </div>
+        </div>
+        <div id="output" class="py-2">
+          <section class="text-xl font-semibold">Execution</section>
+          <div id="consoleLog" class="p-2" style="white-space:pre-wrap">Lorem ipsum dolor sit amet.</div>
+          <div id="errMsg" class="p-2" style="white-space:pre-wrap"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #myUL {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+
+  .caret {
+  }
+
+  .caret::before {
+    content: "\003E";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+  }
+
+  .caret-down::before {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+
+  .nested {
+    display: none;
+  }
+
+  .active {
+    display: block;
+  }
+
+  .testcase-active{
+    background-color: aqua;
+  }
+</style>
+
+<script>
+  let toggler = document.getElementsByClassName("caret");
+  let i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function () {
+      this.parentElement.querySelector(".nested").classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+  const suites = {'test/testsuites/pytest/test_ddt.py': {'cases': {'test_case1[1+2-2]': {'id': 'test/testsuites/pytest/test_ddt.py::Testddt::test_case1[1+2-2]', 'desc': 'ddt case', 'status': 'failed', 'duration': 0.001, 'className': 'Testddt', 'consoleLog': [], 'errMsg': 'self = <test_ddt.Testddt object at 0x10aa15750>, test_input = \'1+2\'\nexpected = 2\n\n    @pytest.mark.parametrize(\n        "test_input,expected", [\n            ("1+2", 2),\n            ("3+5", 8)\n        ]\n    )\n    def test_case1(self, test_input, expected):\n        """ddt case"""\n>       assert eval(test_input) == expected\nE       AssertionError: assert 3 == 2\nE        +  where 3 = eval(\'1+2\')\n\ntest_ddt.py:17: AssertionError', 'execTime': '2022-08-12 21:46:55'}, 'test_case1[3+5-8]': {'id': 'test/testsuites/pytest/test_ddt.py::Testddt::test_case1[3+5-8]', 'desc': 'ddt case', 'status': 'passed', 'duration': 0.0, 'className': 'Testddt', 'consoleLog': [], 'errMsg': '', 'execTime': '2022-08-12 21:46:55'}}, 'results': {'counts': 2, 'passed': 1, 'failed': 1, 'warnings': 0, 'error': 0, 'skipped': 0, 'rate_passed': '50.00%'}, 'duration': 0.001}, 'test/testsuites/pytest/test_fail.py': {'cases': {'test_case1': {'id': 'test/testsuites/pytest/test_fail.py::TestC::test_case1', 'desc': 'test 失败', 'status': 'failed', 'duration': 0.0, 'className': 'TestC', 'consoleLog': [], 'errMsg': 'self = <test_fail.TestC object at 0x10aa15f00>\n\n    def test_case1(self):\n        """test 失败"""\n>       assert 0\nE       assert 0\n\ntest_fail.py:18: AssertionError', 'execTime': '2022-08-12 21:46:55'}, 'test_case2': {'id': 'test/testsuites/pytest/test_fail.py::TestC::test_case2', 'desc': 'こんにちは世界', 'status': 'failed', 'duration': 0.0, 'className': 'TestC', 'consoleLog': [], 'errMsg': 'self = <test_fail.TestC object at 0x10aa160e0>\n\n    def test_case2(self):\n        """こんにちは世界"""\n>       raise IOError(123)\nE       OSError: 123\n\ntest_fail.py:22: OSError', 'execTime': '2022-08-12 21:46:55'}, 'test_case3': {'id': 'test/testsuites/pytest/test_fail.py::TestC::test_case3', 'desc': 'test error', 'status': 'failed', 'duration': 0.001, 'className': 'TestC', 'consoleLog': [], 'errMsg': '@pytest.fixture()\n    def user():\n        a = "yoyo"\n>       assert a == "yoyo123"  # fixture failed with error\nE       AssertionError: assert \'yoyo\' == \'yoyo123\'\nE         - yoyo123\nE         + yoyo\n\ntest_fail.py:11: AssertionError', 'execTime': '2022-08-12 21:46:55'}}, 'results': {'counts': 3, 'passed': 0, 'failed': 3, 'warnings': 0, 'error': 0, 'skipped': 0, 'rate_passed': '0.00%'}, 'duration': 0.001}, 'test/testsuites/pytest/test_success.py': {'cases': {'test_case1': {'id': 'test/testsuites/pytest/test_success.py::TestA::test_case1', 'desc': 'test pass', 'status': 'passed', 'duration': 0.0, 'className': 'TestA', 'consoleLog': [], 'errMsg': '', 'execTime': '2022-08-12 21:46:55'}, 'test_case2': {'id': 'test/testsuites/pytest/test_success.py::TestA::test_case2', 'desc': 'test warning', 'status': 'passed', 'duration': 0.0, 'className': 'TestA', 'consoleLog': [], 'errMsg': '', 'execTime': '2022-08-12 21:46:55'}, 'test_print': {'id': 'test/testsuites/pytest/test_success.py::TestA::test_print', 'desc': '', 'status': 'passed', 'duration': 0.0, 'className': 'TestA', 'consoleLog': [['Captured stdout call', 'this test has print msg\n']], 'errMsg': '', 'execTime': '2022-08-12 21:46:55'}, 'test_case3': {'id': 'test/testsuites/pytest/test_success.py::TestB::test_case3', 'desc': 'test skip', 'status': 'skipped', 'duration': 0.0, 'className': 'TestB', 'consoleLog': [], 'errMsg': "('/Users/yangqing/Workspace/DEV/study/pywebreport/test/testsuites/pytest/test_success.py', 23, 'Skipped: unconditional skip')", 'execTime': '2022-08-12 21:46:55'}, 'test_err_print': {'id': 'test/testsuites/pytest/test_success.py::TestB::test_err_print', 'desc': '', 'status': 'passed', 'duration': 0.0, 'className': 'TestB', 'consoleLog': [['Captured stdout call', 'this test has error msg\n']], 'errMsg': '', 'execTime': '2022-08-12 21:46:55'}}, 'results': {'counts': 5, 'passed': 4, 'failed': 0, 'warnings': 0, 'error': 0, 'skipped': 1, 'rate_passed': '80.00%'}, 'duration': 0.0}}
+
+  const updateResult = (testcase) => {
+    document.getElementById("start_time").innerHTML = testcase.execTime
+    document.getElementById("duration").innerHTML = testcase.duration
+    document.getElementById("description").innerHTML = testcase.desc
+    document.getElementById("consoleLog").innerHTML = testcase.consoleLog
+    document.getElementById("errMsg").innerHTML = testcase.errMsg
+    document.getElementById("test-title-status").innerHTML = testcase.status
+    switch (testcase.status){
+      case "passed":
+        document.getElementById("test-title-status").className = "rounded-lg bg-green-100 text-green-400 px-1 py-1 text-center w-28"
+        document.getElementById("errMsg").className = "p-2" 
+        break
+      case "failed":
+        document.getElementById("test-title-status").className = "rounded-lg bg-red-100 text-red-400 px-1 py-1 text-center w-28"
+        document.getElementById("errMsg").className = "bg-red-50 p-2" 
+        break
+      case "skipped":
+        document.getElementById("test-title-status").className = "rounded-lg bg-gray-100 text-grat-400 px-1 py-1 text-center w-28"
+        document.getElementById("errMsg").className = "bg-gray-50 p-2" 
+        break
+    }
+  }
+  
+  let selected_ele = null
+
+  const trClick = (ele) => {
+    // console.log(ele);
+    
+    // change selected case style
+    if (selected_ele != null){ selected_ele.style.background = "none" }
+    ele.style.background = "rgba(248, 246, 242, 0.75)"
+    selected_ele = ele
+    
+    // update result
+    let nodelist = ele.getAttribute("key").split("::")
+    let cases = suites[nodelist[0]].cases
+    switch (nodelist.length){
+      case 2:
+        for (let key in cases) {
+          if (cases[key].className == "" && key == nodelist.at(-1)){
+            document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
+            updateResult(cases[key])
+          }
+        }
+        break
+      case 3:
+      for (let key in cases) {
+          // console.log(cases)
+          if (cases[key].className == nodelist[1] && key == nodelist.at(-1)){
+            document.getElementById("test-title-name").innerHTML = nodelist.at(-1)
+            updateResult(cases[key])
+          }
+        }
+        break
+    }
+
+
+  } 
+</script>
+</div>
+
+<script>
+  function openPage(pageName,elmnt) {
+    let i, tabcontent, tablinks;
+
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    document.getElementById(pageName).style.display = "block";
+  }
+
+  document.getElementById("defaultOpen").click();
+</script></div>
+      </div>
+    </div>
+  </body>
+</html>
