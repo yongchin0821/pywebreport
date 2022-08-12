@@ -1,4 +1,6 @@
 # v0.1.2
+### features
+- 以前打开报告是空白的，现在默认展示dashboard
 ### bugfix
 - 修复 #3，更改获取``class_name``和``case_name``的方式
 ### chore:

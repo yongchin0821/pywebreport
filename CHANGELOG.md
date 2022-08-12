@@ -1,4 +1,6 @@
 # v0.1.2
+### features
+- display ``dashboard page`` as default open page
 ### bugfix
 - fix #3 change the way to get ``class_name``&``case_name``
 ### chore:
