@@ -18,5 +18,5 @@ if __name__ == '__main__':
     # suite = loader.loadTestsFromTestCase(UnitTestCase)
     suite.addTest(loader.discover("."))
 
-    runner = WebReportRunner(report="result/report.html")
+    runner = WebReportRunner(report="result/index.html")
     test_result = runner.run(suite)
