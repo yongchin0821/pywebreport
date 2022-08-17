@@ -8,7 +8,6 @@ from test_success import UnitTestSuccessCase
 from pywebreport import WebReportRunner
 from XTestRunner import HTMLTestRunner
 
-
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     loader = unittest.TestLoader()
