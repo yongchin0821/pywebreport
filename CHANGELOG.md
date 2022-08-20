@@ -1,3 +1,10 @@
+# v0.1.3
+### bugfix
+- fix report title
+### chore:
+- 
+
+
 # v0.1.2
 ### features
 - display ``dashboard page`` as default open page
