@@ -53,12 +53,13 @@ class HTMLReport:
             fspath = i.nodeid.split(":")[0]
 
             if fspath in suitelist:
+                suitelist[fspath]["results"]["counts"] += 1
                 pass
             else:
                 suitelist[fspath] = {}
                 suitelist[fspath]["cases"] = {}
                 suitelist[fspath]["results"] = {
-                    "counts": 0,
+                    "counts": 1,
                     "passed": 0,
                     "failed": 0,
                     "warnings": 0,
@@ -67,19 +68,21 @@ class HTMLReport:
                 }
                 suitelist[fspath]["duration"] = 0
 
-            suitelist[fspath]["cases"][i.name] = {}
+            class_name = i.cls.__name__
+            name = i.name
+            desc = i.function.__doc__
+            suitelist[fspath]["cases"][name] = {}
+            suitelist[fspath]["cases"][name]["className"] = class_name
+            suitelist[fspath]["cases"][name]["desc"] = desc
 
         report["suites"] = suitelist
 
     def _record_case(self, results, status):
         case_name = results.case_name
 
-        report["suites"][results.fspath]["results"]["counts"] += 1
         report["suites"][results.fspath]["cases"][case_name]["id"] = results.nodeid
-        report["suites"][results.fspath]["cases"][case_name]["desc"] = results.desc
         report["suites"][results.fspath]["cases"][case_name]["status"] = status
         report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
-        report["suites"][results.fspath]["cases"][case_name]["className"] = results.class_name
         report["suites"][results.fspath]["cases"][case_name]["consoleLog"] = results.sections
         report["suites"][results.fspath]["cases"][case_name]["errMsg"] = results.longreprtext
         report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.exec_time
@@ -93,7 +96,7 @@ class HTMLReport:
         results.desc = item.function.__doc__ if item.function.__doc__ is not None else ""
         results.class_name = item.cls.__name__ if item.cls is not None else ""
         results.case_name = item.name
-        
+
         if results.when == "setup":
             self._struct_time = time.localtime()
 
