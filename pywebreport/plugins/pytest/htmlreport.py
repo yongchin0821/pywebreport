@@ -68,19 +68,21 @@ class HTMLReport:
                 }
                 suitelist[fspath]["duration"] = 0
 
-            suitelist[fspath]["cases"][i.name] = {}
+            class_name = i.cls.__name__
+            name = i.name
+            desc = i.function.__doc__
+            suitelist[fspath]["cases"][name] = {}
+            suitelist[fspath]["cases"][name]["className"] = class_name
+            suitelist[fspath]["cases"][name]["desc"] = desc
 
         report["suites"] = suitelist
 
     def _record_case(self, results, status):
         case_name = results.case_name
 
-        # report["suites"][results.fspath]["results"]["counts"] += 1
         report["suites"][results.fspath]["cases"][case_name]["id"] = results.nodeid
-        report["suites"][results.fspath]["cases"][case_name]["desc"] = results.desc
         report["suites"][results.fspath]["cases"][case_name]["status"] = status
         report["suites"][results.fspath]["cases"][case_name]["duration"] = round(results.duration, 3)
-        report["suites"][results.fspath]["cases"][case_name]["className"] = results.class_name
         report["suites"][results.fspath]["cases"][case_name]["consoleLog"] = results.sections
         report["suites"][results.fspath]["cases"][case_name]["errMsg"] = results.longreprtext
         report["suites"][results.fspath]["cases"][case_name]["execTime"] = results.exec_time
