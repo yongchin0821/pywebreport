@@ -1,8 +1,10 @@
 # v0.1.3
 ### bugfix
 - fix report title
+- fix collect error
 ### chore:
-- 
+- some optimization
+- add explanatory note for setup.py of entry_points.pytest11
 
 
 # v0.1.2

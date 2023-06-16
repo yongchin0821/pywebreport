@@ -33,6 +33,7 @@ setup(
         "Operating System :: OS Independent",
         "License :: OSI Approved :: MIT License",
     ],
+    # pytest looks up the pytest11 entrypoint to discover its plugins
     entry_points={
         "pytest11": [
             "reporter = pywebreport.plugins.pytest.plugin",

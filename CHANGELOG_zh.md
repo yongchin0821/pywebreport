@@ -1,3 +1,11 @@
+# v0.1.3
+### bugfix
+- 修复报告title
+- 修复报告收集结果为0时引起的报错
+### chore:
+- 一些代码重构
+- 备注setup.py里entry_points.pytest11
+
 # v0.1.2
 ### features
 - 以前打开报告是空白的，现在默认展示dashboard

@@ -243,7 +243,7 @@ class WebReportRunner:
         report["result"]["duration"] = duration
         report["result"]["deselected"] = ""
 
-    def run(self, testlist, rerun=0, save_last_run=False):
+    def run(self, testlist: unittest.suite.TestSuite, rerun=0, save_last_run=False):
         """
         Run the given test case or test suite.
         """
